@@ -1,0 +1,62 @@
+.content-box {
+    display: flex;            /* Aligns children (image and text) in a row */
+    align-items: center;      /* Centers children vertically within the container */
+    width: 100%;              /* Makes the box span the full width of its container */
+    margin: 100px 0;           /* Adds some vertical spacing around the box */
+    padding: 10px;            /* Padding inside the box */
+    background-color: #424651;   /* Background color for visibility (change as needed) */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: Adds a subtle shadow for depth */
+}
+
+.box-image {
+    width: 50%;               /* Smaller width for the image */
+    height: auto;             /* Keeps the image aspect ratio intact */
+    margin: 0 20px;           /* Adds 20px margin to both left and right sides */
+    border-right: 2px solid #ccc; /* Adds a subtle line between the image and text */
+}
+
+.box-text {
+    width: 50%;               /* Adjusted to take up the remaining space */
+    padding: 20px;            /* Padding around the text for spacing */
+    text-align: left;         /* Aligns text to the left */
+    color: #ffffff;              /* Text color for readability */
+    font-size: 20px;          /* Sets a readable font size */
+}
+
+/* Assuming .faq-container is the parent, remove padding and margin affecting the child elements */
+.faq-container {
+    padding: 20px;
+
+    margin: 0 auto; /* Center the container horizontally */
+    width: 100%; /* Ensures the container takes full width */
+    text-align: center; /* Centers the text inside the container */
+}
+
+.faq-title {
+    color: #ffffff; /* Light color for visibility */
+    background-color: #424651; /* Matches the .color-box color */
+    padding: 20px;
+    margin: 0 33%; /* Aligns with the .color-box margins */
+    width: 34%; /* Matches the .color-box width */
+}
+
+.color-box {
+    background-color: #424651;
+    color: #ffffff;
+    padding: 20px;
+    margin: 0 33%; /* Keeps margins for alignment */
+    transition: background-color 0.3s ease;
+    width: 34%; /* Matches the width of the title for alignment */
+}
+
+.color-box:hover {
+    background-color: #72435C;
+}
+
+.box-title {
+    margin: 0 0 10px 0;
+}
+
+.box-content {
+    margin: 0;
+}

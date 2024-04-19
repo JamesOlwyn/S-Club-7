@@ -1,0 +1,100 @@
+/* Homepage styles */
+body, html {
+    background: linear-gradient(to bottom, #72435C 0%, #482C3E 100%);
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+}
+
+#home {
+	 padding-top: 100px;
+}
+
+.video-container {
+	position: relative;
+	overflow: hidden;
+	width: 80%;
+	padding-top: 45%;
+	margin: 20px auto;
+	border: 5px solid #B4F8C8;
+}
+
+.video-container iframe {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.text-box {
+	width: 82%;
+	margin: 10px auto;
+	padding: 20px;
+	background-color: #424651;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	color: #ffffff;
+	text-align: center;
+}
+
+.text-box h1 {
+	margin-top: 0;
+	margin-bottom: 0.5em;
+}
+
+.text-box p {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.gallery-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	margin-bottom: 100px;
+	margin-top: 100px;
+}
+
+div.gallery {
+	margin: 5px;
+	border: 3px solid #B4F8C8;
+	float: left;
+	width: 300px;
+}
+
+div.gallery img {
+	width: 100%;
+	height: 200px;
+	display: block;
+}
+
+.responsive {
+	padding: 0 6px;
+	width: 24.99999%;
+	float: none;
+	display: flex;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+@media only screen and (max-width: 700px) {
+	.responsive {
+		width: 49.99999%;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.responsive {
+		width: 100%;
+	}
+}
+
+.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+}

@@ -1,0 +1,96 @@
+.site-footer {
+    color: #ffffff;
+    background-color: #72435C;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-links, .footer-bottom {
+    text-align: left;
+    padding: 5px 0;
+}
+
+.footer-links a, .footer-links button {
+    background-color: #D8CEE6;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: block;
+    margin: 2px 0;
+}
+
+/* General Styling for Social Icons */
+.social-links {
+    display: flex;
+    align-items: center; /* Centers items vertically */
+    justify-content: flex-end; /* Aligns items to the right */
+    padding: 10px 0; /* Adds padding above and below the icons */
+}
+
+.fa {
+    padding: 10px; /* Padding around icon increases clickable area */
+    font-size: 20px; /* Adjust icon size */
+    width: 40px; /* Ensures uniform width for all icons */
+    height: 40px; /* Ensures uniform height for all icons */
+    margin: 0 10px; /* Adds horizontal space between icons */
+    text-align: center; /* Ensures icon is centered within its box */
+    line-height: 40px; /* Centers the icon vertically */
+    border-radius: 50%; /* Makes the background circle */
+    color: white; /* Icon color */
+}
+
+/* Specific Background Colors for Each Social Media Platform */
+.fa-facebook {
+    background: #3B5998; /* Facebook color */
+}
+
+.fa-instagram {
+    background: #E4405F; /* Instagram color */
+}
+
+.fa-twitter {
+    background: #55ACEE; /* Twitter color */
+}
+
+/* Hover Effect for Icons */
+.fa:hover {
+    opacity: 0.8; /* Slightly transparent on hover for interactive effect */
+}
+
+@media (min-width: 600px) {
+	.site-footer .container {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	.footer-links a, .footer-links button {
+		display: inline-block;
+		margin: 0 10px;
+	}
+	.social-links {
+		justify-content: center;
+	}
+}
+
+@media (max-width: 399px) {
+	.footer-links a, .footer-links button {
+		padding: 12px 10px;
+	}
+	.fa {
+		font-size: 28px;
+		width: 48px;
+		height: 48px;
+		margin: 0 8px;
+	}
+}

@@ -1,0 +1,104 @@
+body, html {
+    background: linear-gradient(to bottom, #72435C 0%, #482C3E 100%);
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+}
+
+.site-header {
+    width: 100%;
+    background-color: #72435C; /* Assuming a specific color for the header */
+    color: white;
+    padding: 10px 20px; /* Adjust padding to manage the space inside the header */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative; /* Changed from absolute if previously set to ensure normal flow */
+    
+}
+
+.logo {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin-left: 0px;
+}
+
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    z-index: 1000;
+    display: block;
+    cursor: pointer;
+    width: 40px;
+    height: 35px;
+}
+
+.bar1, .bar2, .bar3 {
+    padding-right: 10px;
+	width: 100%;
+	height: 3px;
+	background-color: #fff;
+	margin: 6px 0;
+	transition: 0.4s;
+}
+
+.change .bar1 {
+	transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {
+	opacity: 0;
+}
+
+.change .bar3 {
+	transform: rotate(45deg) translate(-9px, -6px);
+}
+
+.main-nav.active {
+	width: 50%;
+}
+
+.main-nav {
+    height: 100%;
+    width: 0%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #D8CEE6;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align: center;
+}
+
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.nav-item {
+    padding: 12px 8px;
+    border-bottom: 2px solid #000000;
+    text-align: center;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+.nav-link, .nav-title {
+    display:block;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+    margin: 0 auto;
+}
+
+.nav-link:hover {
+    color: #f1f1f1;
+}
+
+.nav-title {
+    margin-top: 20px;
+    font-weight: bold;
+}
