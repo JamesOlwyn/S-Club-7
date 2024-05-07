@@ -1,0 +1,219 @@
+/* Base settings for the whole page */
+body, html {
+    background: linear-gradient(to bottom, #72435C 0%, #482C3E 100%);
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Universal box-sizing model */
+* {
+    box-sizing: border-box;
+}
+
+/* Styling for all div elements to hide default scrollbars */
+div {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+}
+div::-webkit-scrollbar {
+    display: none;
+}
+
+/* Header styling with absolute positioning */
+.site-header {
+    position: absolute;
+    width: 100%;
+    background-color: #72435C;
+    color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    top: 0;
+    z-index: 1000;
+}
+
+/* Logo positioning within the site header */
+.logo {
+    width: 200px;
+    height: auto;
+    display: block;
+    margin-left: 0px;
+}
+
+/* Menu toggle button for mobile views */
+.menu-toggle {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    z-index: 1000;
+    display: block;
+    cursor: pointer;
+    width: 40px;
+    height: 35px;
+}
+
+/* Styling for hamburger menu bars */
+.bar1, .bar2, .bar3 {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+/* Transformations for menu toggle animation */
+.change .bar1 {
+    transform: rotate(-45deg) translate(-9px, 6px);
+}
+.change .bar2 {
+    opacity: 0;
+}
+.change .bar3 {
+    transform: rotate(45deg) translate(-9px, -6px);
+}
+
+/* Main navigation menu styling */
+.main-nav {
+    height: 100%;
+    width: 0%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #D8CEE6;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    text-align: center;
+}
+
+/* Styling for active state of the main navigation */
+.main-nav.active {
+    width: 50%;
+}
+
+/* Navigation list styling */
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+}
+
+/* Individual navigation items */
+.nav-item {
+    padding: 12px 8px;
+    border-bottom: 2px solid #000000;
+    text-align: center;
+    display: inline-block;
+    margin: 0 20px;
+}
+
+/* Links within the navigation */
+.nav-link, .nav-title {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+    font-size: 25px;
+    margin: 0 auto;
+}
+
+.nav-link:hover {
+    color: #f1f1f1;
+}
+
+/* Additional styling for navigation titles */
+.nav-title {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* Styling for the site footer */
+.site-footer {
+    margin-top: 100px;
+    color: #ffffff;
+    background-color: #72435C;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Clearfix hack for floating elements */
+.clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Container styling used in various parts of the site */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+/* Responsive image galleries */
+.gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* Gallery image and description styling */
+div.gallery, div.desc {
+    margin: 5px;
+    border: 3px solid #B4F8C8;
+    float: left;
+    width: 300px;
+}
+div.gallery img {
+    width: 100%;
+    height: 200px;
+    display: block;
+}
+div.desc {
+    padding: 15px;
+    text-align: center;
+}
+
+/* Responsive settings for different screen sizes */
+@media only screen and (max-width: 700px) {
+    .responsive {
+        width: 49.99999%;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .responsive {
+        width: 100%;
+    }
+}
+@media (min-width: 600px) {
+    .site-footer .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .footer-links a, .footer-links button {
+        display: inline-block;
+        margin: 0 10px;
+    }
+    .social-links {
+        justify-content: flex-end;
+    }
+}
+@media (max-width: 399px) {
+    .footer-links a, .footer-links button {
+        padding: 12px 10px;
+    }
+    .fa {
+        font-size: 28px;
+        width: 48px;
+        height: 48px;
+        margin: 0 8px;
+    }
+}
