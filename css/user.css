@@ -1,0 +1,231 @@
+.account-container {
+    display: flex;
+    width: 100%;
+}
+
+.menu {
+    width: 20%;
+    background: linear-gradient(to bottom, #424651 0%, #482C3E 100%);
+    box-shadow: 10px  #000000;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.menu li.active {
+    background-color: #482C3E;
+}
+
+.content {
+    width: 60%; /* Adjust width as needed */
+    margin: 0 auto; /* Centering the content area */
+    padding: 20px;
+    background-color: transparent; 
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+
+
+
+
+.details-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.form-group input[type="text"] {
+    width: calc(100% - 20px); /* Adjusted width to accommodate padding and borders */
+}
+
+.form-group textarea {
+    width: calc(100% - 18px); /* Adjusted width to accommodate padding and borders */
+}
+.form-actions button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #72435C;
+    color: white;
+}
+
+.form-actions button:hover {
+    background-color: #482C3E;
+}
+
+.booking-history {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #72435C;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    font-weight: bold;
+}
+
+.booking-details {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 2px; /* Slight gap between entries */
+}
+
+.event-title, .date-title {
+    width: 50%;
+}
+
+.event, .date {
+    width: 50%;
+}
+.message-form-container {
+    background-color: #fff; /* Light background for the box */
+    padding: 20px; /* Padding around the inputs */
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Border similar to message log entries */
+    border-radius: 4px; /* Rounded corners for the box */
+}
+.message-form-group label {
+    font-weight: bold; /* Make label text bold */
+    color: #333; /* Darker text for better readability */
+    margin-bottom: 5px; /* Space between label and input */
+}
+.message-form-group {
+    background-color: #fff; /* Light background for the input boxes */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc; /* Border similar to message log entries */
+    border-radius: 4px; /* Rounded corners for the box */
+}
+.message-form-group input[type="text"], .message-form-group textarea {
+    width: 90%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.message-form-group input[type="text"] {
+    width: 70%; /* Reduced width for title */
+}
+
+.message-form-group textarea {
+    width: 100%; /* Full width for message */
+    height: 150px; /* Increased height for more text */
+}
+
+.message-entry {
+    border-bottom: 10px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between; /* Aligns title and date on the same line */
+    margin-bottom: 5px; /* Space between header and content */
+}
+
+.message-title-display {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-date {
+    white-space: nowrap;
+}
+
+.message-content-display {
+    word-wrap: break-word; /* Breaks long words to prevent overflow */
+}
+.message-section, .message-log-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 20px;
+    padding-left: 0; /* Remove padding on the left to align with above */
+    padding-right: 0; /* Adjust right padding if necessary */
+    background-color: #f9f9f9;
+}
+.message-section, .booking-history {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Optional: rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Optional: subtle shadow for inner sections */
+    color: #000000; /* Optional: changing text color for better contrast */
+}
+.message-form, .log-container {
+    border: 1px solid #ffffff;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #482C3E;
+}
+.search-results-container {
+    border: 1px solid #ffffff;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #fff;
+}
+.select-dropdown {
+    padding: 8px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+}
+.log-container {
+    height: 250px; /* Fixed height for the container */
+    overflow-y: auto; /* Enables vertical scrolling when necessary */
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-top: 10px;
+}
+.log-container, .search-results-container, .details-box, .form-group {
+    background-color: #fff; /* Light background for the content inside */
+    padding: 10px;
+    border: 1px solid #ddd; /* Subtle border */
+}
+.message-section, .message-log-section, .search-results-container {
+    background-color: #ffffff; /* Consistent background color */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+    color: #000000; /* Text color for better contrast */
+}

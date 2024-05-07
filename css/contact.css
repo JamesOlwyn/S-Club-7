@@ -1,0 +1,232 @@
+/* Main structure with top padding for alignment */
+main {
+    padding-top: 100px;
+}
+
+/* General div styling for scroll behavior without visible scrollbar */
+div {
+	-ms-overflow-style: none; /* Hide scrollbar in IE and Edge */
+	scrollbar-width: none; /* Hide scrollbar in Firefox */
+	overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+/* Hide scrollbar for Webkit browsers like Chrome and Safari */
+div::-webkit-scrollbar {
+	display: none;
+}
+
+/* Styling for the main content area using flexbox for center alignment */
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Contact page top section layout */
+.contact-top-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: auto;
+    width: 80%;
+    background-color: #424651;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    min-height: 100px;
+}
+
+/* Flex styling for elements on the left and right within the top section */
+.contact-top-left, .contact-top-right {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Additional right border for left section */
+.contact-top-left {
+    border-right: 2px solid #DDD;
+    padding-right: 40px;
+}
+
+/* Adjust padding for right section */
+.contact-top-right {
+    padding-left: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for images within the calendar section */
+.calendar-image {
+    max-width: 80%;
+    height: auto;
+}
+
+/* Header styling within the top contact section */
+.contact-top-header {
+    font-size: 24px;
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+/* Text styling within the top contact section */
+.contact-top-text {
+    font-size: 16px;
+    color: #DDD;
+}
+
+/* Main container for contact details with vertical alignment */
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #72435C;
+    padding-top: 20px;
+    width: 100%;
+}
+
+/* Box styling for individual contact forms or information */
+.contact-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #424651;
+    border: 1px solid #ccc;
+    padding: 40px;
+    width: 80%;
+    margin: 40px auto;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Form layout within the contact box */
+.form {
+    width: 80%;
+    margin: 20px auto;
+}
+
+/* Input layout within the contact form */
+.contact-form-inputs {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Styling for left and right input sections within the form */
+.form-left, .form-right {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 0 10px;
+}
+
+/* Common input styles for text, email, tel, date, time, number, textarea */
+input[type="text"], input[type="email"], input[type="tel"], input[type="date"], input[type="time"], input[type="number"], textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+/* Label styling for better visibility and layout */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+/* General styling for input and textarea elements */
+input, textarea {
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+/* Submit button styling within forms */
+.form-submit-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Styling for textarea height */
+textarea {
+    height: 100px;
+}
+
+/* Hidden thank you message styling post form submission */
+.contact-thank-you {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+    color: #FFFFFF;
+}
+
+/* Fullscreen overlay for modal or popup content */
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    display: none;
+}
+
+/* Inner content styling within the overlay */
+.overlay-content {
+    color: #ffffff;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-80%, -50%);
+    padding: 20px;
+    background: white;
+    width: 160%;
+    max-width: 600px;
+    max-height: 80%;
+    overflow: auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #72435C;
+    border-radius: 10px;
+}
+
+/* Styling for the close button within overlays */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #000;
+    cursor: pointer;
+    z-index: 1200;
+}
+
+/* Styling for privacy policy or similar information container */
+.privacy-policy-container {
+    background-color: #72435C;
+    color: #ffffff;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/* Styling for valid input visual feedback */
+input.is-valid {
+    border: 3px solid green;
+}
+
+/* Styling for invalid input visual feedback */
+input.is-invalid {
+    border: 3px solid red;
+}
