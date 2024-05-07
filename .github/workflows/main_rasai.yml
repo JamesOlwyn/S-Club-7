@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_00058044659d4fae91bdf32654ddaeab }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_63cadcd688ba4450bb03ac6d383bc461 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_4fa9b95422c74c12859af3bbb3e5e653 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_762d8553a9ab4fbb8c395af222e9842a }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_00058044659d4fae91bdf32654ddaeab }}/skulduggerydude/s-club-7-server:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_4fa9b95422c74c12859af3bbb3e5e653 }}/skulduggerydude/s-club-7-server:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'rasai'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_7490d636bb3f45a5a9d1887788947c90 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_00058044659d4fae91bdf32654ddaeab }}/skulduggerydude/s-club-7-server:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b36556f1359c423ebdb06aefa8396a0a }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_4fa9b95422c74c12859af3bbb3e5e653 }}/skulduggerydude/s-club-7-server:${{ github.sha }}'
