@@ -23,18 +23,18 @@
 
 <nav class="main-nav" id="main-nav">
     <ul class="nav-list">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
         <hr class="space">
         <li class="nav-title">Rasai Members</li>
-        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="registration.html" >Register</a></li>
+        <li class="nav-item"><a class="nav-link" href="registration.php" >Register</a></li>
     </ul>
 </nav>
 
@@ -109,8 +109,8 @@
         <div>
             <div class="footer-bottom">
                 © 2024, Rasai NZ ||
-                <a href="privacypolicy.html" class="footer-button">Privacy Policy</a>
-                <a href="termsofservice.html" class="footer-button">Terms of Service</a>
+                <a href="privacypolicy.php" class="footer-button">Privacy Policy</a>
+                <a href="termsofservice.php" class="footer-button">Terms of Service</a>
             </div>
         </div>
         <div class="footer-social">

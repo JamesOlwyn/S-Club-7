@@ -6,14 +6,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <title>Rasai - Authentic Sri Lankan Cuisine</title>
 <link rel="icon" type="image/x-icon" href="/images/FaviconImage.png">
-<link rel="stylesheet" href="css/user.css">
+<link rel="stylesheet" href="css/admin.css">
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/footer.css">
 </head>
-<body> 
+<body>
 <header class="site-header">
-    <img src="Images/R_white_transparentbg.png" alt="Rasai Logo" class="logo">
+    <img src="images/R_white_transparentbg.png" alt="Rasai Logo" class="logo">
     <div class="container">
+
         <div class="menu-toggle" id="menu-toggle">
             <div class="bar1"></div>
             <div class="bar2"></div>
@@ -23,18 +24,18 @@
 </header>
 <nav class="main-nav" id="main-nav">
     <ul class="nav-list">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
         <hr class="space">
         <li class="nav-title">Rasai Members</li>
-        <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
         <hr>
-        <li class="nav-item"><a class="nav-link" href="registration.html" >Register</a></li>
+        <li class="nav-item"><a class="nav-link" href="registration.php" >Register</a></li>
     </ul>
 </nav>
 <main>
@@ -42,11 +43,11 @@
         <div class="account-container">
             <aside class="menu">
                 <ul>
-                    <li id="details-btn" class="active">My Details</li>
-                    <li id="booking-btn">New Booking</li>
-                    <li id="previous-btn">Previous Bookings</li>
-                    <li id="message-btn">Message Rasai</li>
+                    <li id="bookings-btn" class="active">Bookings</li>
+                    <li id="rasaimenu-btn">Rasai Menu</li>
+                    <li id="Users-btn">Users</li>
                 </ul>
+                
             </aside>
             <section class="content" id="content-area">
             </section>
@@ -58,8 +59,8 @@
         <div>
             <div class="footer-bottom">
                 © 2024, Rasai NZ ||
-                <a href="privacypolicy.html" class="footer-button">Privacy Policy</a>
-                <a href="termsofservice.html" class="footer-button">Terms of Service</a>
+                <a href="privacypolicy.php" class="footer-button">Privacy Policy</a>
+                <a href="termsofservice.php" class="footer-button">Terms of Service</a>
             </div>
         </div>
         <div class="footer-social">
@@ -72,5 +73,5 @@
     </div>
 </footer>
 </body>
-<script src="js/user.js"></script>
+<script src="js/admin.js"></script>
 </html>
