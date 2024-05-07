@@ -1,0 +1,113 @@
+/* Basic styling for the site footer */
+.site-footer {
+    color: #ffffff;
+    background-color: #72435C;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 -5px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Main container for flexible layouts */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+/* Footer links and bottom section for consistent alignment and distribution */
+.footer-links, .footer-bottom {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    padding: 5px 0;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/* Styling for links and buttons in the footer */
+.footer-links a, .footer-links button, .footer-button {
+    background-color: #D8CEE6;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Hover effects for footer links and buttons */
+.footer-links a:hover, .footer-links button:hover, .footer-button:hover {
+    background-color: #C7B9DB;
+    color: white;
+}
+
+/* Flex container for social media icons */
+.social-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0;
+}
+
+/* Base styles for social media icons */
+.fa {
+    padding: 10px;
+    font-size: 20px;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 50%;
+    color: white;
+    background-color: #3B5998; /* Default background color */
+}
+
+/* Specific social media icon colors */
+.fa-facebook { background: #3B5998; }
+.fa-instagram { background: #E4405F; }
+.fa-twitter { background: #55ACEE; }
+
+/* Hover effect for social media icons */
+.fa:hover {
+    opacity: 0.8;
+}
+
+/* Responsive adjustments for containers and elements in the footer */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-links, .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-link-item, .footer-text {
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-text {
+        order: 2; /* Position text in the middle */
+    }
+
+    .footer-link-item:first-child {
+        order: 1; /* Position privacy policy first */
+    }
+
+    .footer-link-item:last-child {
+        order: 3; /* Position terms of service last */
+    }
+}
