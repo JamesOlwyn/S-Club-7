@@ -120,3 +120,10 @@ body, html {
     margin-left: 100px;
     text-align: left;
 }
+
+/* Price styling within color boxes */
+.box-container .color-box > .box-content .box-price {
+    padding-left: 40px !important; /* Adjust as needed */
+    margin-left: 0 !important; /* Reset margin-left */
+    text-align: right !important; /* Align price to the right */
+}
