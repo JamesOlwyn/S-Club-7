@@ -11,7 +11,7 @@
     <div class="register-container">
         <a href="javascript:history.back()" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
         <h2 class="register-title">Register for Rasai</h2>
-        <form action="/submit-your-registration-form" method="post">
+        <form action="php/update_new_customer.php" method="post">
             <div class="form-group icon-input">
                 <i class="fa fa-user"></i>
                 <input type="text" id="username" name="username" placeholder="Choose a username" required>
@@ -22,7 +22,7 @@
             </div>
             <div class="form-group icon-input">
                 <i class="fa fa-user"></i>
-                <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                <input type="text" id="fullname" name="firstname" placeholder="Enter your full name" required>
             </div>
             <div class="form-group icon-input">
                 <i class="fa fa-user"></i>
@@ -45,4 +45,5 @@
         </form>
     </div>
 </body>
+<script src="js/registration.js"></script>
 </html>

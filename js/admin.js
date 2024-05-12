@@ -1,3 +1,4 @@
+// Add event listeners to buttons
 document.getElementById('bookings-btn').addEventListener('click', function() {
     loadBookings();
 });
@@ -10,6 +11,7 @@ document.getElementById('Users-btn').addEventListener('click', function() {
     loadUsers();
 });
 
+// Function to load bookings
 function loadBookings() {
     document.getElementById('content-area').innerHTML = `
         <div class="details-box">
@@ -17,9 +19,16 @@ function loadBookings() {
             <p>Here you can view and manage all bookings.</p>
         </div>
     `;
+    // Remove 'active' class from all tabs
+    const navItems = document.querySelectorAll('.menu li');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    // Add 'active' class to the selected tab
+    document.getElementById('bookings-btn').classList.add('active');
 }
 
-// Fetch menu options from the database
+// Function to fetch menu options from the database
 function fetchMenuOptions() {
     return fetch('php/fetch_menu_options.php')
         .then(response => {
@@ -34,106 +43,231 @@ function fetchMenuOptions() {
         });
 }
 
-let dropdownMenu; // Define dropdownMenu in a higher scope
+// Ensure formData is initialized globally
+let formData = new FormData();
 
-// Load Rasai Menu function
+// Function to load Rasai menu
 function loadRasaiMenu() {
-    // Fetch menu options from the database and populate the dropdown menu
+    // Fetch menu options from the database
     fetchMenuOptions().then(menuOptions => {
-        const form = document.createElement('form');
-        form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Handle form submission if needed
-        });
-
-        const dropdownMenu = document.createElement('select');
-        dropdownMenu.setAttribute('id', 'menuOptionSelect');
-		
-
-        // Add a default option
-        const defaultOption = document.createElement('option');
-        defaultOption.textContent = 'Select Menu Option';
-        dropdownMenu.appendChild(defaultOption);
-
-        // Populate dropdown with menu options
-        menuOptions.forEach(option => {
-            const optionElement = document.createElement('option');
-            optionElement.value = option.MenuID;
-            optionElement.textContent = option.MenuName;
-            dropdownMenu.appendChild(optionElement);
-        });
-
-        // Add event listener to dropdown menu
-		dropdownMenu.addEventListener('change', function() {
-			console.log('Dropdown menu value changed'); // Check if this message appears in the console
-			const selectedMenuID = this.value;
-			console.log('Selected menu ID:', selectedMenuID); // Log the selected menu ID
-			const selectedMenu = menuOptions.find(option => option.MenuID === parseInt(selectedMenuID));
-
-			// Call function to populate form with selected menu details
-			populateForm(selectedMenu, form);
-		});
-
-        // Add the dropdown menu to the form
-        form.appendChild(dropdownMenu);
-
-        // Add a submit button to the form
-        const submitButton = document.createElement('button');
-        submitButton.textContent = 'Update';
-        submitButton.addEventListener('click', function() {
-            // Call function to handle form submission
-            updateMenu(formData);
-        });
-        form.appendChild(submitButton);
-
-        // Append the form to the content-area
         const contentArea = document.getElementById('content-area');
-        contentArea.innerHTML = '';
-        contentArea.appendChild(form);
+        contentArea.innerHTML = ''; // Clear existing content
+
+        // Create table element
+        const table = document.createElement('table');
+        table.classList.add('menu-table');
+
+        // Create table header row
+        const headerRow = document.createElement('tr');
+        const headers = ['Name', 'Description', 'Price', 'Actions'];
+        headers.forEach(headerText => {
+            const headerCell = document.createElement('th');
+            headerCell.textContent = headerText;
+            headerRow.appendChild(headerCell);
+        });
+        table.appendChild(headerRow);
+
+        // Loop through each menu option and create table rows
+        menuOptions.forEach(menuItem => {
+            const row = document.createElement('tr');
+
+            // Menu Name
+            const nameCell = document.createElement('td');
+            const nameInput = document.createElement('input');
+            nameInput.setAttribute('type', 'text');
+            nameInput.setAttribute('value', menuItem.MenuName);
+            nameCell.appendChild(nameInput);
+            row.appendChild(nameCell);
+
+            // Menu Description
+            const descCell = document.createElement('td');
+            const descTextarea = document.createElement('textarea');
+            descTextarea.textContent = menuItem.MenuDesc;
+            descTextarea.classList.add('desc-textarea');
+            descCell.appendChild(descTextarea);
+            row.appendChild(descCell);
+
+            // Menu Price
+            const priceCell = document.createElement('td');
+            const priceInput = document.createElement('input');
+            priceInput.setAttribute('type', 'text');
+            priceInput.setAttribute('value', menuItem.MenuPrice);
+            priceCell.appendChild(priceInput);
+            row.appendChild(priceCell);
+
+            // Update Button
+            const updateCell = document.createElement('td');
+            const updateButton = document.createElement('button');
+            updateButton.textContent = 'Update';
+            updateButton.addEventListener('click', function() {
+                // Prepare FormData with updated values
+                const formData = new FormData();
+                formData.append('MenuID', menuItem.MenuID);
+                formData.append('MenuName', nameInput.value);
+                formData.append('MenuDesc', descTextarea.value);
+                formData.append('MenuPrice', priceInput.value);
+
+                // Call function to update menu
+                updateMenu(formData);
+            });
+            updateCell.appendChild(updateButton);
+            row.appendChild(updateCell);
+
+            // Delete Button
+            const deleteCell = document.createElement('td');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', function() {
+                // Call function to delete menu
+                deleteMenu(menuItem.MenuID);
+            });
+            deleteCell.appendChild(deleteButton);
+            row.appendChild(deleteCell);
+
+            table.appendChild(row);
+        });
+
+        // Append table to content area
+        contentArea.appendChild(table);
+
+        // Add New Button
+        const addNewButton = document.createElement('button');
+        addNewButton.textContent = 'Add New';
+        addNewButton.addEventListener('click', function() {
+            showAddMenuForm();
+        });
+        contentArea.appendChild(addNewButton);
+        
+        // Remove 'active' class from all tabs
+        const navItems = document.querySelectorAll('.menu li');
+        navItems.forEach(item => {
+            item.classList.remove('active');
+        });
+        // Add 'active' class to the selected tab
+        document.getElementById('rasaimenu-btn').classList.add('active');
     }).catch(error => {
         console.error('Error loading Rasai menu:', error);
         // Handle error
     });
 }
 
-// Function to handle form submission
+
+// Function to delete menu from the database
+function deleteMenu(menuID) {
+    fetch('php/delete_menu_option.php', {
+        method: 'POST',
+        body: JSON.stringify({ MenuID: menuID }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to delete menu option');
+        }
+        return response.json(); // Assuming the server responds with a success message
+    })
+    .then(responseData => {
+        alert('Menu option deleted successfully');
+        // Reload Rasai menu after successful deletion
+        loadRasaiMenu();
+    })
+    .catch(error => {
+        console.error('Error deleting menu option:', error);
+        // Handle error
+    });
+}
+
+// Function to show the form for adding a new menu option
+function showAddMenuForm() {
+    const contentArea = document.getElementById('content-area');
+    
+    // Clear existing content
+    contentArea.innerHTML = '';
+
+    // Create form element
+    const form = document.createElement('form');
+
+    // Menu Name
+    const nameLabel = document.createElement('label');
+    nameLabel.textContent = 'Name:';
+    const nameInput = document.createElement('input');
+    nameInput.setAttribute('type', 'text');
+    nameLabel.appendChild(nameInput);
+    form.appendChild(nameLabel);
+
+    // Menu Description
+    const descLabel = document.createElement('label');
+    descLabel.textContent = 'Description:';
+    const descTextarea = document.createElement('textarea');
+    descTextarea.classList.add('desc-textarea');
+    descLabel.appendChild(descTextarea);
+    form.appendChild(descLabel);
+
+    // Menu Price
+    const priceLabel = document.createElement('label');
+    priceLabel.textContent = 'Price:';
+    const priceInput = document.createElement('input');
+    priceInput.setAttribute('type', 'text');
+    priceLabel.appendChild(priceInput);
+    form.appendChild(priceLabel);
+
+    // Add some space
+    form.appendChild(document.createElement('br'));
+
+    // Submit Button
+    const submitButton = document.createElement('button');
+    submitButton.textContent = 'Add';
+    submitButton.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+        const formData = new FormData();
+        formData.append('MenuName', nameInput.value);
+        formData.append('MenuDesc', descTextarea.value);
+        formData.append('MenuPrice', priceInput.value);
+        addNewMenu(formData);
+    });
+    form.appendChild(submitButton);
+
+    // Append form to content area
+    contentArea.appendChild(form);
+}
+
+
+
+
+// Function to add a new menu option to the database
+function addNewMenu(formData) {
+    fetch('php/add_menu_option.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add new menu option');
+        }
+        // Assuming the server responds with a success message
+        return 'success'; 
+    })
+    .then(status => {
+        if (status === 'success') {
+            // Display success message
+            alert('Menu option added successfully');
+            // Reload Rasai menu to display the newly added option
+            loadRasaiMenu();
+        }
+    })
+    .catch(error => {
+        console.error('Error adding new menu option:', error);
+        // Handle error
+    });
+}
+
+
+
+
+
+// Function to update the menu in the database
 function updateMenu(formData) {
-    // Get the selected menu ID from the dropdown menu
-    const menuOptionSelect = document.getElementById('menuOptionSelect');
-	console.log('Dropdown menu value:', menuOptionSelect.value);
-    const menuID = menuOptionSelect ? menuOptionSelect.value : null;
-
-    console.log('Selected menu ID:', menuID); // Log the selected menu ID
-
-    // Check if a menu option is selected
-    if (!menuID) {
-        console.error('No menu option selected');
-        return; // Exit the function if no menu option is selected
-    }
-
-    // Select only the input fields that we want to include in the FormData
-    formData.append('MenuID', menuID);
-
-    // Get the values of the editable input fields if they exist
-    const menuNameInput = document.getElementById('MenuName');
-    if (menuNameInput) {
-        formData.append('MenuName', menuNameInput.value);
-    }
-
-    const menuDescInput = document.getElementById('MenuDesc');
-    if (menuDescInput) {
-        formData.append('MenuDesc', menuDescInput.value);
-    }
-
-    const menuPriceInput = document.getElementById('MenuPrice');
-    if (menuPriceInput) {
-        formData.append('MenuPrice', menuPriceInput.value);
-    }
-	console.log('Form data:', formData);
-	console.log('Menu Name:', menuNameInput ? menuNameInput.value : 'Not found');
-	console.log('Menu Description:', menuDescInput ? menuDescInput.value : 'Not found');
-	console.log('Menu Price:', menuPriceInput ? menuPriceInput.value : 'Not found');
-
     fetch('php/update_menu_options.php', {
         method: 'POST',
         body: formData
@@ -149,6 +283,8 @@ function updateMenu(formData) {
         // Check if the response indicates success or failure
         if (text.includes('successfully')) {
             alert('Menu option updated successfully');
+            // Reload Rasai menu after successful update
+            loadRasaiMenu();
         } else {
             throw new Error('Failed to update menu: ' + text);
         }
@@ -176,7 +312,7 @@ function populateForm(selectedMenu, form) {
         const input = document.createElement('input');
         input.setAttribute('type', 'text');
         input.setAttribute('name', key); // Ensure name attribute matches PHP keys
-        input.setAttribute('id', key);
+        input.setAttribute('id', key); // Ensure unique IDs
         input.setAttribute('value', selectedMenu[key]);
         form.appendChild(input);
 
@@ -197,13 +333,13 @@ function populateForm(selectedMenu, form) {
         // Serialize form data
         const formData = new FormData(form);
         // Call function to handle form submission with form data
-		console.log('Form data:', formData);
+        console.log('Form data:', formData);
         updateMenu(formData);
     });
     form.appendChild(submitButton);
 }
 
-
+// Function to load users
 function loadUsers() {
     document.getElementById('content-area').innerHTML = `
         <div class="details-box">
@@ -211,11 +347,23 @@ function loadUsers() {
             <p>Here you can manage user accounts, set permissions, and view user activity.</p>
         </div>
     `;
+    // Remove 'active' class from all tabs
+    const navItems = document.querySelectorAll('.menu li');
+    navItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    // Add 'active' class to the selected tab
+    document.getElementById('Users-btn').classList.add('active');
 }
+
 // Toggle the hamburger menu
 document.getElementById('menu-toggle').addEventListener('click', function() {
     this.classList.toggle("change");
     document.getElementById('main-nav').classList.toggle("active");
 });
 
-
+// Add event listener to window to load bookings and highlight the default tab when the page loads
+window.addEventListener('load', function() {
+    loadBookings(); // Load bookings content by default
+    document.getElementById('bookings-btn').classList.add('active'); // Highlight the Bookings tab by adding 'active' class
+});

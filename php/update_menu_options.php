@@ -1,12 +1,13 @@
 <?php
+session_start();
 // SQLite database file path
 $databaseFile = '../db/rasaiCateringDB.db';
 
 // Get parameters from request
-$menuID = $_POST['menuID'];
-$menuName = $_POST['menuName'];
-$menuDesc = $_POST['menuDesc'];
-$menuPrice = $_POST['menuPrice'];
+$menuID = $_POST['MenuID']; // Adjusted to match the case sent from JavaScript
+$menuName = $_POST['MenuName']; // Adjusted to match the case sent from JavaScript
+$menuDesc = $_POST['MenuDesc']; // Adjusted to match the case sent from JavaScript
+$menuPrice = $_POST['MenuPrice']; // Adjusted to match the case sent from JavaScript
 
 try {
     // Connect to SQLite database

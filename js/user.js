@@ -23,34 +23,6 @@ document.getElementById('message-btn').addEventListener('click', function() {
     loadMessageRasai();
 });
 
-function loadDetails() {
-    document.getElementById('content-area').innerHTML = `
-        <div class="details-box">
-            <form id="user-details-form">
-                <div class="form-group">
-                    <label for="fullname">Full Name</label>
-                    <input type="text" id="fullname" value="Sally Jackson">
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="text" id="phone" value="0226972745">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" value="Sally@gmail.com">
-                </div>
-                <div class="form-group">
-                    <label for="address">Address</label>
-                    <input type="text" id="address" value="">
-                </div>
-                <div class="form-actions">
-                    <button type="button" onclick="updateDetails()">Update Details</button>
-                    <button type="button" onclick="cancelUpdate()">Cancel</button>
-                </div>
-            </form>
-        </div>
-    `;
-}
 
 function loadBookingForm() {
     document.getElementById('content-area').innerHTML = `
@@ -261,3 +233,80 @@ function submitBooking() {
 function cancelBooking() {
     alert('Booking cancelled!');
 }
+
+function loadDetails() {
+    // Fetch user details from the server
+    fetch('php/get_user_details.php')
+        .then(response => response.json())
+        .then(data => {
+            // Check if data contains user details
+            if (data && Object.keys(data).length > 0) {
+                // Extract user details from data object
+                const { fullname, firstname, lastname, phone, email, address } = data;
+
+                // Fill the My Details form with user details
+                document.getElementById('content-area').innerHTML = `
+                    <div class="details-box">
+                        <form id="user-details-form">
+                            <div class="form-group">
+								<label for="firstname">First Name</label>
+								<input type="text" id="firstname" value="">
+							</div>
+							<div class="form-group">
+								<label for="lastname">Last Name</label>
+								<input type="text" id="lastname" value="">
+							</div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" id="phone" value="${phone}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="${email}">
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" onclick="updateDetails()">Update Details</button>
+                                <button type="button" onclick="cancelUpdate()">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            } else {
+                // If no user details found, display an empty form
+                document.getElementById('content-area').innerHTML = `
+                    <!-- Updated "My Details" form -->
+						<div class="details-box">
+						<form id="user-details-form">
+							<div class="form-group">
+								<label for="firstname">First Name</label>
+								<input type="text" id="firstname" value="">
+							</div>
+							<div class="form-group">
+								<label for="lastname">Last Name</label>
+								<input type="text" id="lastname" value="">
+							</div>
+							<div class="form-group">
+								<label for="phone">Phone Number</label>
+								<input type="text" id="phone" value="">
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="email" id="email" value="">
+							</div>
+							<div class="form-actions">
+								<button type="button" onclick="updateDetails()">Update Details</button>
+								<button type="button" onclick="cancelUpdate()">Cancel</button>
+							</div>
+						</form>
+					</div>
+
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user details:', error);
+        });
+}
+
+
+

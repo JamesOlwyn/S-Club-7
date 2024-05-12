@@ -1,76 +1,115 @@
+<?php
+session_start(); // Start the session
+
+// Check if the username session variable is set
+if(isset($_SESSION['username'])) {
+    // Display the welcome message
+    echo "<div class='welcome-message'>Welcome, " . $_SESSION['username'] . "</div>";
+
+    // Make an AJAX request to fetch user details
+    echo "<script>
+        window.onload = function() {
+            fetch('php/get_user_details.php')
+            .then(response => response.json())
+            .then(data => {
+                // Check if data contains user details
+                if (data && Object.keys(data).length > 0) {
+                    // Extract user details from data object
+                    const { firstname, lastname, phone, email } = data;
+
+                    // Fill the form fields with user details
+                    document.getElementById('firstname').value = firstname;
+                    document.getElementById('lastname').value = lastname;
+                    document.getElementById('phone').value = phone;
+                    document.getElementById('email').value = email;
+                } else {
+                    console.error('Error: User details not found.');
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching user details:', error);
+            });
+        };
+    </script>";
+} else {
+    // If the username session variable is not set, display an error message
+    echo "<div class='welcome-message'>Session username not set. Please log in.</div>";
+    // You can add further logic here, such as redirecting to the login page
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>Rasai - Authentic Sri Lankan Cuisine</title>
-<link rel="icon" type="image/x-icon" href="/images/FaviconImage.png">
-<link rel="stylesheet" href="css/user.css">
-<link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/footer.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Rasai - Authentic Sri Lankan Cuisine</title>
+    <link rel="icon" type="image/x-icon" href="/images/FaviconImage.png">
+    <link rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
 </head>
 <body> 
-<header class="site-header">
-    <img src="Images/R_white_transparentbg.png" alt="Rasai Logo" class="logo">
-    <div class="container">
-        <div class="menu-toggle" id="menu-toggle">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
+    <header class="site-header">
+        <img src="Images/R_white_transparentbg.png" alt="Rasai Logo" class="logo">
+        <div class="container">
+            <div class="menu-toggle" id="menu-toggle">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
         </div>
-    </div>
-</header>
-<nav class="main-nav" id="main-nav">
-    <ul class="nav-list">
-        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-        <hr>
-        <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a></li>
-        <hr>
-        <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
-        <hr>
-        <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
-        <hr class="space">
-        <li class="nav-title">Rasai Members</li>
-        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-        <hr>
-        <li class="nav-item"><a class="nav-link" href="registration.php" >Register</a></li>
-    </ul>
-</nav>
-<main>
+    </header>
+    <nav class="main-nav" id="main-nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+            <hr>
+            <li class="nav-item"><a class="nav-link" href="menu.php">Menu</a></li>
+            <hr>
+            <li class="nav-item"><a class="nav-link" href="about.php">About</a></li>
+            <hr>
+            <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
+            <hr class="space">
+            <li class="nav-title">Rasai Members</li>
+            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+            <hr>
+            <li class="nav-item"><a class="nav-link" href="registration.php" >Register</a></li>
+        </ul>
+    </nav>
     <main>
-        <div class="account-container">
-            <aside class="menu">
-                <ul>
-                    <li id="details-btn" class="active">My Details</li>
-                    <li id="booking-btn">New Booking</li>
-                    <li id="previous-btn">Previous Bookings</li>
-                    <li id="message-btn">Message Rasai</li>
-                </ul>
-            </aside>
-            <section class="content" id="content-area">
-            </section>
-        </div>
+        <main>
+            <div class="account-container">
+                <aside class="menu">
+                    <ul>
+                        <li id="details-btn" class="active">My Details</li>
+                        <li id="booking-btn">New Booking</li>
+                        <li id="previous-btn">Previous Bookings</li>
+                        <li id="message-btn">Message Rasai</li>
+                    </ul>
+                </aside>
+                <section class="content" id="content-area">
+                </section>
+            </div>
+        </main>
     </main>
-</main>
-<footer class="site-footer">
-    <div class="container">
-        <div>
-            <div class="footer-bottom">
-                © 2024, Rasai NZ ||
-                <a href="privacypolicy.php" class="footer-button">Privacy Policy</a>
-                <a href="termsofservice.php" class="footer-button">Terms of Service</a>
+    <footer class="site-footer">
+        <div class="container">
+            <div>
+                <div class="footer-bottom">
+                    © 2024, Rasai NZ ||
+                    <a href="privacypolicy.php" class="footer-button">Privacy Policy</a>
+                    <a href="termsofservice.php" class="footer-button">Terms of Service</a>
+                </div>
+            </div>
+            <div class="footer-social">
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank" class="fa fa-facebook"></a>
+                    <a href="https://instagram.com" target="_blank" class="fa fa-instagram"></a>
+                    <a href="https://twitter.com" target="_blank" class="fa fa-twitter"></a>
+                </div>
             </div>
         </div>
-        <div class="footer-social">
-            <div class="social-links">
-                <a href="https://facebook.com" target="_blank" class="fa fa-facebook"></a>
-                <a href="https://instagram.com" target="_blank" class="fa fa-instagram"></a>
-                <a href="https://twitter.com" target="_blank" class="fa fa-twitter"></a>
-            </div>
-        </div>
-    </div>
-</footer>
+    </footer>
+    <script src="js/user.js"></script>
 </body>
-<script src="js/user.js"></script>
 </html>

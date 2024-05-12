@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="color-box">
                         <h3 class="box-title">${option.MenuName}</h3>
                         <p class="box-content">${option.MenuDesc}</p>
-                        <p class="box-price">Price: ${option.MenuPrice}</p>
+                        <p class="box-content">Price pp: ${option.MenuPrice}</p>
                     </div>
                 `;
                 menuItemsContainer.insertAdjacentHTML('beforeend', menuItemHTML);

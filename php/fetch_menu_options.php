@@ -1,4 +1,5 @@
 <?php
+session_start();
 // SQLite database file path
 $databaseFile = '../db/rasaiCateringDB.db';
 
