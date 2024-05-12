@@ -4,24 +4,20 @@ session_start();
 // SQLite database file path
 $databaseFile = '../db/rasaiCateringDB.db';
 
-// Check if the user is logged in (i.e., username is stored in session)
-if (!isset($_SESSION['username'])) {
-    // Redirect the user to the login page or handle the unauthorized access appropriately
-    // For example:
-    header("Location: login.php");
+// Check if all required POST parameters are set
+if (!isset($_POST['firstname'], $_POST['lastname'], $_POST['phone'], $_POST['email'])) {
+    echo "Error: Required parameters are missing";
     exit; // Terminate script execution
 }
 
-// Validate and sanitize the updated details (similar to what you did in update_new_customer.php)
-
-// Assuming you have received updated details in $_POST
-$username = $_SESSION['username']; // Get the username from session
+// Retrieve updated details from POST data
 $firstname = $_POST['firstname'];
 $lastname = $_POST['lastname'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
+$password = isset($_POST['password']) ? $_POST['password'] : null; // Check if password is set
 
-// Update the user details in the database
+// Update the user details in the database only if changes are detected
 try {
     // Connect to the SQLite database
     $conn = new PDO("sqlite:$databaseFile");
@@ -30,27 +26,48 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Prepare SQL statement to update user details
-    $stmt = $conn->prepare("UPDATE users SET firstname = :firstname, lastname = :lastname, phone = :phone, email = :email WHERE username = :username");
+    $updateStmt = "UPDATE Customer SET FName = :firstname, LName = :lastname, Phone = :phone, Email = :email";
+
+    // Add password update if password is provided
+    if ($password !== null) {
+        $updateStmt .= ", Userpass = :password";
+    }
+
+    $updateStmt .= " WHERE Username = :username";
+
+    // Prepare SQL statement
+    $stmt = $conn->prepare($updateStmt);
 
     // Bind parameters
     $stmt->bindParam(':firstname', $firstname);
     $stmt->bindParam(':lastname', $lastname);
     $stmt->bindParam(':phone', $phone);
     $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':username', $_SESSION['username']);
 
-    // Execute the statement with updated details
+    // Bind password parameter if provided
+    if ($password !== null) {
+        $stmt->bindParam(':password', $password);
+    }
+
+    // Execute the update statement
     $stmt->execute();
+
+    // Check if any rows were affected
+    $rowsAffected = $stmt->rowCount();
+
+    if ($rowsAffected > 0) {
+        // Send response back to the client
+        echo "User details updated successfully";
+    } else {
+        echo "No changes detected in user details";
+    }
 
     // Close the database connection
     $conn = null;
-
-    // Send response back to the client
-    echo "User details updated successfully";
 
 } catch(PDOException $e) {
     // Handle database errors
     echo "Error: " . $e->getMessage();
 }
 ?>
-

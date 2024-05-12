@@ -22,7 +22,7 @@
             </div>
             <div class="form-group icon-input">
                 <i class="fa fa-user"></i>
-                <input type="text" id="fullname" name="firstname" placeholder="Enter your full name" required>
+                <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
             </div>
             <div class="form-group icon-input">
                 <i class="fa fa-user"></i>
