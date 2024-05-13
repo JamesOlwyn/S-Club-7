@@ -232,9 +232,6 @@ function showAddMenuForm() {
     contentArea.appendChild(form);
 }
 
-
-
-
 // Function to add a new menu option to the database
 function addNewMenu(formData) {
     fetch('php/add_menu_option.php', {
@@ -261,10 +258,6 @@ function addNewMenu(formData) {
         // Handle error
     });
 }
-
-
-
-
 
 // Function to update the menu in the database
 function updateMenu(formData) {
@@ -311,8 +304,8 @@ function populateForm(selectedMenu, form) {
         // Create input field
         const input = document.createElement('input');
         input.setAttribute('type', 'text');
-        input.setAttribute('name', key); // Ensure name attribute matches PHP keys
-        input.setAttribute('id', key); // Ensure unique IDs
+        input.setAttribute('name', key); 
+        input.setAttribute('id', key); 
         input.setAttribute('value', selectedMenu[key]);
         form.appendChild(input);
 
@@ -367,3 +360,41 @@ window.addEventListener('load', function() {
     loadBookings(); // Load bookings content by default
     document.getElementById('bookings-btn').classList.add('active'); // Highlight the Bookings tab by adding 'active' class
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutLink = document.querySelector('#user-logout-btn a');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default action of the link
+            logout(); // Call the logout function when the logout link is clicked
+        });
+    }
+});
+
+function logout() {
+    if (confirm("Are you sure you want to logout?")) {
+        fetch('php/logout.php', {
+            method: 'POST',
+        })
+        .then(response => {
+            if (response.ok) {
+                // Clear session data
+                sessionStorage.clear(); // Clear session storage
+                localStorage.clear(); // Clear local storage
+
+                // Add a small delay before redirection
+                setTimeout(() => {
+                    window.location.href = '../index.php';
+                }, 500); // Delay in milliseconds (adjust as needed)
+            } else {
+                alert('Failed to logout. Please try again later.');
+            }
+        })
+        .catch(error => {
+            console.error('Error logging out:', error);
+            alert('An error occurred while logging out. Please try again later.');
+        });
+    } else {
+        // Do nothing if the user cancels logout
+    }
+}

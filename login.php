@@ -1,3 +1,46 @@
+<?php
+session_start(); // Start the session
+
+// Check if login error message is set
+if (isset($_SESSION['login_error'])) {
+    $loginErrorMessage = $_SESSION['login_error'];
+    unset($_SESSION['login_error']); // Clear the error message
+}
+
+// Check if the form is submitted and process login
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // SQLite database file path
+    $databaseFile = 'db/rasaiCateringDB.db';
+
+    // Retrieve username and password from the form
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    try {
+        $conn = new SQLite3($databaseFile);
+    } catch (Exception $e) {
+        echo 'Error connecting to database: ' . $e->getMessage();
+    }
+
+    $sql = "SELECT * FROM Customer WHERE Username = '$username' AND Userpass = '$password'";
+    $result = $conn->query($sql);
+
+    if ($result->fetchArray()) {
+        // Login successful
+        $_SESSION['username'] = $username;
+        header("Location: user.php"); // Redirect to user.php
+        exit; // Ensure that no further output is sent
+    } else {
+        // Login failed
+        $_SESSION['login_error'] = "Invalid username or password";
+        // Redirect back to login page
+        header("Location: login.php");
+        exit; // Ensure that no further output is sent
+    }
+    $conn->close();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +49,19 @@
     <title>Login - Rasai</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/login.css">
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
-        <a href="javascript:history.back()" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
         <h2 class="login-title">Rasai Login</h2> 
-        <form action="/submit-your-login-form" method="post">
+        <?php if (isset($loginErrorMessage)): ?>
+            <div class="error-message"><?php echo $loginErrorMessage; ?></div>
+        <?php endif; ?>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group icon-input">
                 <i class="fa fa-user"></i>
                 <input type="text" id="username" name="username" placeholder="Type your username" required>

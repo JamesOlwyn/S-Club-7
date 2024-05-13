@@ -28,6 +28,12 @@ document.getElementById('message-btn').addEventListener('click', function() {
     highlightTab('message-btn'); // Highlight the Message tab
 });
 
+document.getElementById('user-logout-btn').addEventListener('click', function() {
+	console.log("Logout button clicked"); // Add this line
+	highlightTab('user-logout-btn'); // Highlight the Message tab
+    logout(); // Call the logout function	
+});
+
 // Function to highlight the active tab
 function highlightTab(tabId) {
     // Remove 'active' class from all tabs
@@ -44,7 +50,6 @@ window.addEventListener('load', function() {
     loadDetails(); // Load details content by default
     highlightTab('details-btn'); // Highlight the Details tab by adding 'active' class
 });
-
 
 function loadBookingForm() {
     document.getElementById('content-area').innerHTML = `
@@ -89,7 +94,7 @@ function loadBookingForm() {
             </form>
         </div>
     `;
-    initMap(); // Initialize the Google Maps
+    //initMap(); // Initialize the Google Maps
 }
 
 function loadPreviousBookings() {
@@ -114,9 +119,6 @@ function loadPreviousBookings() {
         </div>
     `;
 }
-
-
-
 
 function loadMessageRasai() {
     document.getElementById('content-area').innerHTML = `
@@ -156,7 +158,6 @@ function loadMessageRasai() {
             </div>
         </div>
     `;
-    // loadMessages(); // Load existing messages (this function needs to be implemented)
 }
 
 function sendMessage() {
@@ -209,6 +210,7 @@ function performSearch() {
         searchResultsContainer.innerHTML = '<p>No results found.</p>';
     }
 }
+
 function sortMessages(order) {
     const logContainer = document.getElementById('log-container');
     let messages = Array.from(logContainer.getElementsByClassName('message-entry'));
@@ -234,7 +236,6 @@ function getDateFromText(dateStr) {
     return new Date(parts[2], parts[1] - 1, parts[0]);  // Note: months are 0-based
 }
 
-
 // Initial load of 'My Details'
 loadDetails();
 
@@ -243,6 +244,7 @@ function initMap() {
     document.getElementById('map').innerHTML = '<p>Map would appear here.</p>';
 }
 
+// Method to update My Details form
 function updateDetails() {
     // Get form data
     const firstName = document.getElementById('firstname').value.trim();
@@ -257,7 +259,7 @@ function updateDetails() {
     formData.append('lastname', lastName);
     formData.append('phone', phone);
     formData.append('email', email);
-    formData.append('password', password); // Append new password
+    formData.append('password', password);
 
     // Send data to the server using fetch
     fetch('php/update_user_details.php', {
@@ -277,10 +279,6 @@ function updateDetails() {
     });
 }
 
-
-
-
-
 function submitBooking() {
     alert('Booking submitted!');
 }
@@ -289,6 +287,7 @@ function cancelBooking() {
     alert('Booking cancelled!');
 }
 
+// Load user details from session username to My Details form
 function loadDetails() {
     // Fetch user details from the server
     fetch('php/get_user_details.php')
@@ -362,6 +361,39 @@ function loadDetails() {
         .catch(error => {
             console.error('Error fetching user details:', error);
         });
+}
+
+// Function to handle user logout
+function logout() {
+    // Confirm user's intention to logout
+    if (confirm("Are you sure you want to logout?")) {
+        // Initiate a POST request to the logout PHP file
+        fetch('php/logout.php', {
+            method: 'POST', // Use POST method for the logout request
+        })
+        .then(response => {
+            // Check if the logout request was successful
+            if (response.ok) {
+                // Clear session and local storage data
+                sessionStorage.clear(); // Clear session storage
+                localStorage.clear(); // Clear local storage
+
+                // Redirect the user to the home page after successful logout
+                window.location.href = '../index.php'; // Redirect to the home page
+            } else {
+                // Alert the user if logout failed
+                alert('Failed to logout. Please try again later.');
+            }
+        })
+        .catch(error => {
+            // Log any errors encountered during logout process
+            console.error('Error logging out:', error);
+            // Alert the user about the error
+            alert('An error occurred while logging out. Please try again later.');
+        });
+    } else {
+        // Do nothing if the user cancels logout
+    }
 }
 
 

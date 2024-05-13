@@ -1,10 +1,3 @@
-// Add event listener for form submission
-document.getElementById("myForm").addEventListener("submit", function(event){
-    event.preventDefault(); // Prevent default form submission
-    document.getElementById("myForm").style.display = "none"; // Hide the form
-    document.getElementById("thankYouMsg").style.display = "block"; // Show thank you message
-});
-
 // Wait for the DOM content to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Select the logout link element

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,9 +36,18 @@
         <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
         <hr class="space">
         <li class="nav-title">Rasai Members</li>
-        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-        <hr>
-        <li class="nav-item"><a class="nav-link" href="registration.php" >Register</a></li>
+        <?php if(isset($_SESSION['username'])) { ?>
+            <!-- Display "My Account" link only when there is a stored username in the session -->
+            <li class="nav-item"><a class="nav-link" href="user.php">My Account</a></li>
+            <!-- Display "Logout" link only when there is a stored username in the session -->
+            <li class="nav-item" id="user-logout-btn"><a class="nav-link" href="index.php">Logout</a></li>
+        <?php } else { ?>
+            <!-- Display "Login" link only when there is no stored username in the session -->
+            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+            <!-- Display "Register" link only when there is no stored username in the session -->
+            <li class="nav-item"><a class="nav-link" href="registration.php">Register</a></li>
+        <?php } 
+		?>
     </ul>
 </nav>
 
@@ -123,11 +136,11 @@
     </div>
 </footer>
 </body>
-<script src="JS/Rasi.js"></script>
+<script src="js/rasi.js"></script>
 
-<script src="JS/NavigationHam.js"></script>
-<script src="JS/ContactForm.js"></script>
-<script src="JS/EmailVerify.js"></script>
+<script src="js/navigationham.js"></script>
+<script src="js/contactform.js"></script>
+<script src="js/emailverify.js"></script>
 
 </body>
 </html>

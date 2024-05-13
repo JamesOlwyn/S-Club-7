@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); // Start the session
 
 // SQLite database file path
 $databaseFile = '../db/rasaiCateringDB.db';
@@ -15,7 +15,7 @@ $firstname = $_POST['firstname'];
 $lastname = $_POST['lastname'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
-$password = isset($_POST['password']) ? $_POST['password'] : null; // Check if password is set
+$password = isset($_POST['password']) ? $_POST['password'] : ''; // Set password to empty string by default
 
 // Update the user details in the database only if changes are detected
 try {
@@ -28,8 +28,8 @@ try {
     // Prepare SQL statement to update user details
     $updateStmt = "UPDATE Customer SET FName = :firstname, LName = :lastname, Phone = :phone, Email = :email";
 
-    // Add password update if password is provided
-    if ($password !== null) {
+    // Add password update if password is provided and not empty
+    if (!empty($password)) {
         $updateStmt .= ", Userpass = :password";
     }
 
@@ -45,8 +45,8 @@ try {
     $stmt->bindParam(':email', $email);
     $stmt->bindParam(':username', $_SESSION['username']);
 
-    // Bind password parameter if provided
-    if ($password !== null) {
+    // Bind password parameter if provided and not empty
+    if (!empty($password)) {
         $stmt->bindParam(':password', $password);
     }
 

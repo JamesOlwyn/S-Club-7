@@ -1,5 +1,6 @@
 <?php
-session_start();
+session_start(); // Start the session
+
 // SQLite database file path
 $databaseFile = '../db/rasaiCateringDB.db';
 
@@ -35,14 +36,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Execute the statement
         $stmt->execute();
 
+        // Display success message
         echo "New record created successfully";
 
         // Close connection
         $conn = null;
     } catch(PDOException $e) {
+        // Display error message
         echo "Error: " . $e->getMessage();
     }
 } else {
+    // If form is not submitted, display error message
     echo "Error: Form not submitted";
 }
 ?>

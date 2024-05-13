@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); // Start the session
 
 // SQLite database file path
 $databaseFile = '../db/rasaiCateringDB.db';
@@ -24,10 +24,11 @@ try {
     $conn = null;
 
     // Return user details as JSON response
-    header('Content-Type: application/json');
-    echo json_encode($userDetails);
+    header('Content-Type: application/json'); // Set the response content type to JSON
+    echo json_encode($userDetails); // Encode user details as JSON and echo
 } catch(PDOException $e) {
-    // Display error message
-    echo json_encode(['error' => $e->getMessage()]);
+    // Handle database connection error
+    echo json_encode(['error' => $e->getMessage()]); // Encode error message as JSON and echo
 }
 ?>
+

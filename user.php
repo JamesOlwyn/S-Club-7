@@ -3,9 +3,7 @@ session_start(); // Start the session
 
 // Check if the username session variable is set
 if(isset($_SESSION['username'])) {
-    // Display the welcome message
-    echo "<div class='welcome-message'>Welcome, " . $_SESSION['username'] . "</div>";
-
+    
     // Make an AJAX request to fetch user details
     echo "<script>
         window.onload = function() {
@@ -71,12 +69,28 @@ if(isset($_SESSION['username'])) {
             <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
             <hr class="space">
             <li class="nav-title">Rasai Members</li>
+            <?php if(isset($_SESSION['username'])) { ?>
+            <!-- Display "My Account" link only when there is a stored username in the session -->
+            <li class="nav-item"><a class="nav-link" href="user.php">My Account</a></li>
+            <!-- Display "Logout" link only when there is a stored username in the session -->
+            <li class="nav-item" id="user-logout-btn"><a class="nav-link" href="index.php">Logout</a></li>
+			<?php } else { ?>
+            <!-- Display "Login" link only when there is no stored username in the session -->
             <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-            <hr>
-            <li class="nav-item"><a class="nav-link" href="registration.php" >Register</a></li>
+            <!-- Display "Register" link only when there is no stored username in the session -->
+            <li class="nav-item"><a class="nav-link" href="registration.php">Register</a></li>
+			<?php } 
+			?>
         </ul>
     </nav>
     <main>
+	<?php
+        // Check if the username session variable is set
+if(isset($_SESSION['username'])) {
+    // Display the welcome message
+    echo "<div class='welcome-message content' style='color: white; font-size: 1.2em; margin-bottom: 20px;'>Welcome, " . $_SESSION['username'] . "</div>";
+}
+	?>
         <main>
             <div class="account-container">
                 <aside class="menu">
@@ -85,6 +99,7 @@ if(isset($_SESSION['username'])) {
                         <li id="booking-btn">New Booking</li>
                         <li id="previous-btn">Previous Bookings</li>
                         <li id="message-btn">Message Rasai</li>
+                        <li id="user-logout-btn">Logout</li>
                     </ul>
                 </aside>
                 <section class="content" id="content-area">

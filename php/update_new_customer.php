@@ -1,11 +1,12 @@
 <?php
-session_start();
+session_start(); // Start the session
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate and sanitize input data
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $firstname = $_POST['firstname']; // Corrected variable name
+    $firstname = $_POST['firstname']; 
     $lastname = $_POST['lastname'];
     $phone = $_POST['phone'];
     $email = $_POST['email'];
