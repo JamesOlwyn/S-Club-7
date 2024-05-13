@@ -49,7 +49,7 @@ if(isset($_SESSION['username'])) {
 </head>
 <body> 
     <header class="site-header">
-        <img src="Images/R_white_transparentbg.png" alt="Rasai Logo" class="logo">
+        <img src="images/R_white_transparentbg.png" alt="Rasai Logo" class="logo">
         <div class="container">
             <div class="menu-toggle" id="menu-toggle">
                 <div class="bar1"></div>

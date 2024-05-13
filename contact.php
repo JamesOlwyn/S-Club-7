@@ -71,7 +71,7 @@ session_start();
         </div>
         </div>
         <div class="contact-top-right">
-            <img src="Images/Screenshot 2024-04-18 201817.png" alt="Calendar Image" class="calendar-image">
+            <img src="images/Screenshot 2024-04-18 201817.png" alt="Calendar Image" class="calendar-image">
         </div>
     </div>
 
