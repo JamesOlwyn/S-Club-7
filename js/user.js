@@ -52,73 +52,121 @@ window.addEventListener('load', function() {
 });
 
 function loadBookingForm() {
-    document.getElementById('content-area').innerHTML = `
-        <div class="details-box">
-            <form id="booking-form">
-				<div class="form-group">
-					<label for="booking-firstname">First Name</label>
-					<input type="text" id="booking-firstname" value="">
-				</div>
-				<div class="form-group">
-					<label for="booking-lastname">Last Name</label>
-					<input type="text" id="booking-lastname" value="">
-				</div>
-                <div class="form-group">
-                    <label for="booking-phone">Phone Number</label>
-                    <input type="text" id="booking-phone" value="">
-                </div>
-                <div class="form-group">
-                    <label for="booking-email">Email</label>
-                    <input type="email" id="booking-email" value="">
-                </div>
-                <div class="form-group">
-                    <label for="event-address">Event Address</label>
-                    <input type="text" id="event-address" placeholder="Type address or select from map">
-                    <div id="map" style="width: 100%; height: 200px; margin-top: 10px;"></div>
-                </div>
-                <div class="form-group">
-                    <label for="event-date">Event Date</label>
-                    <input type="date" id="event-date">
-                </div>
-                <div class="form-group">
-                    <label for="adult-guests">Adult Guests</label>
-                    <input type="number" id="adult-guests" min="0">
-                </div>
-                <div class="form-group">
-                    <label for="child-guests">Child Guests</label>
-                    <input type="number" id="child-guests" min="0">
-                </div>
-                <div class="form-actions">
-                    <button type="button" onclick="submitBooking()">Submit Booking</button>
-                </div>
-            </form>
-        </div>
-    `;
-    //initMap(); // Initialize the Google Maps
+    // Fetch user details from the server
+    fetch('php/get_user_details.php')
+        .then(response => response.json())
+        .then(data => {
+            // Check if data contains user details
+            if (data && Object.keys(data).length > 0) {
+                // Extract user details from data object
+                const { firstname, lastname, phone, email } = data;
+
+                // Fill the booking form with user details
+                document.getElementById('content-area').innerHTML = `
+                    <div class="details-box">
+                        <form id="booking-form">
+                            <div class="form-group">
+                                <label for="booking-firstname">First Name</label>
+                                <input type="text" id="booking-firstname" value="${firstname}">
+                            </div>
+                            <div class="form-group">
+                                <label for="booking-lastname">Last Name</label>
+                                <input type="text" id="booking-lastname" value="${lastname}">
+                            </div>
+                            <div class="form-group">
+                                <label for="booking-phone">Phone Number</label>
+                                <input type="text" id="booking-phone" value="${phone}">
+                            </div>
+                            <div class="form-group">
+                                <label for="booking-email">Email</label>
+                                <input type="email" id="booking-email" value="${email}">
+                            </div>
+                            <div class="form-group">
+                                <label for="event-address">Event Address</label>
+                                <input type="text" id="event-address" placeholder="Type address or select from map">
+                                <div id="map" style="width: 100%; height: 200px; margin-top: 10px;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-date">Event Date</label>
+                                <input type="date" id="event-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="adult-guests">Adult Guests</label>
+                                <input type="number" id="adult-guests" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="child-guests">Child Guests</label>
+                                <input type="number" id="child-guests" min="0">
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" onclick="submitBooking()">Submit Booking</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            } else {
+                // If no user details found, display an empty booking form
+                document.getElementById('content-area').innerHTML = `
+                    <div class="details-box">
+                        <form id="booking-form">
+                            <!-- Form fields without user details -->
+                        </form>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user details:', error);
+            // Display an error message or handle the error as needed
+        });
 }
 
+
 function loadPreviousBookings() {
-    document.getElementById('content-area').innerHTML = `
-        <div class="booking-history">
-            <div class="booking-header">
-                <span class="event-title">Event</span>
-                <span class="date-title">Date</span>
-            </div>
-            <div class="booking-details">
-                <span class="event">Specialty Briyani</span>
-                <span class="date">03/01/2024</span>
-            </div>
-            <div class="booking-details">
-                <span class="event">Village Menu</span>
-                <span class="date">16/11/2023</span>
-            </div>
-            <div class="booking-details">
-                <span class="event">Village Menu</span>
-                <span class="date">26/08/2023</span>
-            </div>
-        </div>
-    `;
+    // Make AJAX request to fetch previous bookings
+    fetch('php/get_previous_bookings.php')
+        .then(response => response.json())
+        .then(data => {
+            // Check if data contains previous bookings
+            if (data && data.length > 0) {
+                // Create HTML for displaying previous bookings
+                let html = `
+                    <div class="booking-history">
+                        <div class="booking-header">
+                            <span class="date-title">Date</span>
+                            <span class="address-title">Address</span>
+                            <span class="adults-title">Adult</span>
+                            <span class="children-title">Child</span>
+                        </div>
+                `;
+                // Iterate over each booking and add to HTML
+                data.forEach(booking => {
+                    html += `
+                        <div class="booking-details">
+                            <span class="date">${booking.OrderDate}</span>
+                            <span class="address">${booking.OrderAddress}</span>
+                            <span class="adults">${booking.AdultGuests}</span>
+                            <span class="children">${booking.ChildGuests}</span>
+                        </div>
+                    `;
+                });
+                // Close the HTML
+                html += `</div>`;
+                // Display the HTML in the content area
+                document.getElementById('content-area').innerHTML = html;
+            } else {
+                // If no previous bookings found, display a message
+                document.getElementById('content-area').innerHTML = `<p>No previous bookings found.</p>`;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching previous bookings:', error);
+            // Display an error message
+            document.getElementById('content-area').innerHTML = `<p>Error fetching previous bookings. Please try again later.</p>`;
+        });
 }
+
+
 
 function loadMessageRasai() {
     document.getElementById('content-area').innerHTML = `
@@ -395,6 +443,57 @@ function logout() {
         // Do nothing if the user cancels logout
     }
 }
+
+// Method for submitting a New Booking
+function submitBooking() {
+    // Get form data
+    const firstName = document.getElementById('booking-firstname').value.trim();
+    const lastName = document.getElementById('booking-lastname').value.trim();
+    const phone = document.getElementById('booking-phone').value.trim();
+    const email = document.getElementById('booking-email').value.trim();
+    const address = document.getElementById('event-address').value.trim();
+    const eventDate = document.getElementById('event-date').value;
+    const adultGuests = document.getElementById('adult-guests').value;
+    const childGuests = document.getElementById('child-guests').value;
+
+    // Create a FormData object to send to the server
+    const formData = new FormData();
+    formData.append('firstname', firstName);
+    formData.append('lastname', lastName);
+    formData.append('phone', phone);
+    formData.append('email', email);
+    formData.append('address', address);
+    formData.append('eventDate', eventDate);
+    formData.append('adultGuests', adultGuests);
+    formData.append('childGuests', childGuests);
+
+    // Send data to the server using fetch
+    fetch('php/process_booking.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+			// Clear the form
+            document.getElementById('booking-form').reset();
+			// Switch to the previous bookings tab
+            loadPreviousBookings();
+			highlightTab('previous-btn');
+            // Display a success message or perform any other actions on successful submission
+            alert('Booking submitted successfully!');
+        } else {
+            // Display an error message or handle the error as needed
+            alert('Failed to submit booking. Please try again later.');
+        }
+    })
+    .catch(error => {
+        // Log any errors encountered during form submission
+        console.error('Error submitting booking:', error);
+        // Display an error message or handle the error as needed
+        alert('An error occurred while submitting booking. Please try again later.');
+    });
+}
+
 
 
 

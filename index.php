@@ -36,17 +36,31 @@ session_start();
         <li class="nav-item"><a class="nav-link" href="contact.php">Contact</a></li>
         <hr class="space">
         <li class="nav-title">Rasai Members</li>
-        <?php if(isset($_SESSION['username'])) { ?>
-            <!-- Display "My Account" link only when there is a stored username in the session -->
-            <li class="nav-item"><a class="nav-link" href="user.php">My Account</a></li>
-            <!-- Display "Logout" link only when there is a stored username in the session -->
-            <li class="nav-item" id="user-logout-btn"><a class="nav-link" href="index.php">Logout</a></li>
-        <?php } else { ?>
-            <!-- Display "Login" link only when there is no stored username in the session -->
-            <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-            <!-- Display "Register" link only when there is no stored username in the session -->
-            <li class="nav-item"><a class="nav-link" href="registration.php">Register</a></li>
-        <?php } 
+        <?php 
+		if(isset($_SESSION['username'])) {
+			// Display "Logout" link only when there is a stored username in the session
+			?>
+			<li class="nav-item" id="user-logout-btn"><a class="nav-link" href="index.php">Logout</a></li>
+			<?php 
+			if ($_SESSION['username'] == "admin") {
+				// If the username is "admin", redirect to admin.php
+				?>
+				<li class="nav-item"><a class="nav-link" href="admin.php">My Account</a></li>
+				<?php
+			} else {
+				// For other users, continue to user.php
+				?>
+				<li class="nav-item"><a class="nav-link" href="user.php">My Account</a></li>
+				<?php
+			}
+		} else {
+			// Display "Login" link only when there is no stored username in the session
+			?>
+			<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+			<!-- Display "Register" link only when there is no stored username in the session -->
+			<li class="nav-item"><a class="nav-link" href="registration.php">Register</a></li>
+		<?php 
+		} 
 		?>
     </ul>
 </nav>
@@ -69,29 +83,29 @@ session_start();
             <div class="gallery-container">
                 <div class="responsive">
                     <div class="gallery">
-                        <a target="_blank" href="images/Food1.jpg">
-                            <img src="images/Food1.jpg" alt="Cinque Terre">
+                        <a target="_blank" href="Images/Food1.jpg">
+                            <img src="Images/Food1.jpg" alt="Cinque Terre">
                         </a>
                     </div>
                 </div>
                 <div class="responsive">
                     <div class="gallery">
-                        <a target="_blank" href="images/Food2.jpg">
-                            <img src="images/Food2.jpg" alt="Forest">
+                        <a target="_blank" href="Images/Food2.jpg">
+                            <img src="Images/Food2.jpg" alt="Forest">
                         </a>
                     </div>
                 </div>
                 <div class="responsive">
                     <div class="gallery">
-                        <a target="_blank" href="images/Food3.jpg">
-                            <img src="images/Food3.jpg" alt="Northern Lights">
+                        <a target="_blank" href="Images/Food3.jpg">
+                            <img src="Images/Food3.jpg" alt="Northern Lights">
                         </a>
                     </div>
                 </div>
                 <div class="responsive">
                     <div class="gallery">
-                        <a target="_blank" href="images/Food4.jpg">
-                            <img src="images/Food4.jpg" alt="Mountains">
+                        <a target="_blank" href="Images/Food4.jpg">
+                            <img src="Images/Food4.jpg" alt="Mountains">
                         </a>
                     </div>
                 </div>

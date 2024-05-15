@@ -28,7 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result->fetchArray()) {
         // Login successful
         $_SESSION['username'] = $username;
-        header("Location: user.php"); // Redirect to user.php
+        if ($username === "admin") {
+            header("Location: admin.php"); // Redirect to admin.php if username is admin
+        } else {
+            header("Location: user.php"); // Redirect to user.php for other users
+        }
         exit; // Ensure that no further output is sent
     } else {
         // Login failed
@@ -57,6 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="login-container">
+	<a href="javascript:history.back()" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
         <h2 class="login-title">Rasai Login</h2> 
         <?php if (isset($loginErrorMessage)): ?>
             <div class="error-message"><?php echo $loginErrorMessage; ?></div>

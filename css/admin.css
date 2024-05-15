@@ -225,3 +225,15 @@ h2 {
     overflow-y: auto;
 }
 
+.add-user-form {
+    padding: 10px; /* Add padding around the form */
+    margin-bottom: 20px; /* Add margin at the bottom to create space between the form and other content */
+}
+
+.add-user-form input,
+.add-user-form button {
+    margin-bottom: 10px !important; /* Add margin between form elements */
+}
+
+
+

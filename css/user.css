@@ -93,15 +93,18 @@
     color: rgb(0, 0, 0);
     padding: 10px;
     font-weight: bold;
+	align-items: left;
 }
 
-.booking-details {
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 2px; /* Slight gap between entries */
+.event-title, .date-title, .address-title, .adults-title, .children-title {
+    flex: 1;
+    text-align: left;
 }
+
+.adults-title, .children-title {
+    max-width: 60px;
+}
+
 
 .event-title, .date-title {
     width: 50%;
@@ -228,4 +231,21 @@ h2 {
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
     color: #000000; /* Text color for better contrast */
+}
+
+.booking-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.date, .address, .adults, .children {
+    flex: 1;
+    text-align: left; /* Align text within .date, .address, .adults, and .children to the left */
+}
+
+.adults, .children {
+    max-width: 60px; /* Limit the width of adults and children fields to prevent excessive spacing */
 }
