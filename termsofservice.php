@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Terms of Service - Rasai</title>
     <link rel="stylesheet" href="css/policy.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="policy-container">
+	<a href="javascript:history.back()" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
         <h1>Terms of Service</h1>
         <p>Welcome to Rasai! These Terms of Service govern your access to and use of our services. By accessing or using any part of our services, you agree to be bound by these terms.</p>
         <h2>1. Agreement to Terms</h2>

@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - Rasai</title>
     <link rel="stylesheet" href="css/policy.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div class="policy-container">
-      <a href="javascript:history.back()" class="back-arrow">
-        <i class="fa fa-arrow-left"></i>
-      </a>
+	<a href="javascript:history.back()" class="back-arrow"><i class="fa fa-arrow-left"></i></a>
       <h1>Privacy Policy</h1>
       <p>Welcome to Rasai! This Privacy Policy explains how Rasai ("we", "us", or "our") collects, uses, shares, and protects the personal information of our users ("you" or "your") when you visit our website or use our catering services.</p>
       <h2>1. Information We Collect</h2>
