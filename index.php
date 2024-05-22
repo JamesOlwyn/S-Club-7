@@ -1,7 +1,7 @@
 <?php
 session_start();
 ?>
-<!--- thomas test 1 -->
+<!--- thomas test 2 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
