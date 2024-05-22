@@ -38,30 +38,29 @@ session_start();
         <hr class="space">
         <li class="nav-title">Rasai Members</li>
         <?php 
-		if(isset($_SESSION['username'])) {
-			// Display "Logout" link only when there is a stored username in the session
-			?>
-			<li class="nav-item" id="user-logout-btn"><a class="nav-link" href="index.php">Logout</a></li>
-			<?php 
-			if ($_SESSION['username'] == "admin") {
-				// If the username is "admin", redirect to admin.php
+			if (isset($_SESSION['username'])) {
+				// Display "My Account" link and"Logout" link when there is a stored username in the session
+				if ($_SESSION['username'] == "admin") {
+					// If the username is "admin", redirect to admin.php
+					?>
+					<li class="nav-item"><a class="nav-link" href="admin.php">My Account</a></li>
+					<?php
+				} else {
+					// For other users, continue to user.php
+					?>
+					<li class="nav-item"><a class="nav-link" href="user.php">My Account</a></li>
+					<?php
+				}
 				?>
-				<li class="nav-item"><a class="nav-link" href="admin.php">My Account</a></li>
+				<li class="nav-item" id="user-logout-btn"><a class="nav-link" href="index.php">Logout</a></li>
 				<?php
 			} else {
-				// For other users, continue to user.php
+				// Display "Login" and "Register" links only when there is no stored username in the session
 				?>
-				<li class="nav-item"><a class="nav-link" href="user.php">My Account</a></li>
-				<?php
-			}
-		} else {
-			// Display "Login" link only when there is no stored username in the session
-			?>
-			<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-			<!-- Display "Register" link only when there is no stored username in the session -->
-			<li class="nav-item"><a class="nav-link" href="registration.php">Register</a></li>
-		<?php 
-		} 
+				<li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
+				<li class="nav-item"><a class="nav-link" href="registration.php">Register</a></li>
+				<?php 
+			} 
 		?>
     </ul>
 </nav>
