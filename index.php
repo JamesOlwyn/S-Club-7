@@ -1,14 +1,14 @@
 <?php
 session_start();
 ?>
-
+<!--- thomas test 2 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<title>Rasai - Authentic Sri Lankan Cuisine</title>
+<title>Rasai - Authentic ri Lankan Cuisine</title>
 <link rel="icon" type="image/x-icon" href="/images/FaviconImage.png">
 <link rel="stylesheet" href="css/index.css">
 <link rel="stylesheet" href="css/header.css">
