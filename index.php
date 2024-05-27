@@ -66,8 +66,8 @@ session_start();
 <main>
     <section id="home">
         <div class="video-container">
-            <iframe
-                src="https://www.youtube.com/embed/l5cSX6I5F_w?autoplay=1&mute=1&loop=1&playlist=l5cSX6I5F_w&enablejsapi=1" 
+            <iframe 
+                src="https://www.youtube.com/embed/bCWd9ywjOKw?autoplay=1&mute=1&loop=1&playlist=bCWd9ywjOKw&enablejsapi=1"
                 title="YouTube video player" 
                 frameborder="0" 
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
