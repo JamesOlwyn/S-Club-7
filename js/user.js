@@ -65,19 +65,19 @@ function loadBookingForm() {
                 document.getElementById('content-area').innerHTML = `
                     <div class="details-box">
                         <form id="booking-form">
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="booking-firstname">First Name</label>
                                 <input type="text" id="booking-firstname" value="${firstname}">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="booking-lastname">Last Name</label>
                                 <input type="text" id="booking-lastname" value="${lastname}">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="booking-phone">Phone Number</label>
                                 <input type="text" id="booking-phone" value="${phone}">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" style="display: none;">
                                 <label for="booking-email">Email</label>
                                 <input type="email" id="booking-email" value="${email}">
                             </div>
@@ -110,6 +110,26 @@ function loadBookingForm() {
                     <div class="details-box">
                         <form id="booking-form">
                             <!-- Form fields without user details -->
+                            <div class="form-group">
+                                <label for="event-address">Event Address</label>
+                                <input type="text" id="event-address" placeholder="Type address or select from map">
+                                <div id="map" style="width: 100%; height: 200px; margin-top: 10px;"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="event-date">Event Date</label>
+                                <input type="date" id="event-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="adult-guests">Adult Guests</label>
+                                <input type="number" id="adult-guests" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="child-guests">Child Guests</label>
+                                <input type="number" id="child-guests" min="0">
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" onclick="submitBooking()">Submit Booking</button>
+                            </div>
                         </form>
                     </div>
                 `;
@@ -120,6 +140,7 @@ function loadBookingForm() {
             // Display an error message or handle the error as needed
         });
 }
+
 
 
 function loadPreviousBookings() {
@@ -299,7 +320,17 @@ function updateDetails() {
     const lastName = document.getElementById('lastname').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim(); // Include new password field
+    const password = document.getElementById('password').value.trim();
+
+    // Password validation regular expression
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    // Validate password against the regular expression
+    if (!passwordPattern.test(password)) {
+        // Password does not meet the criteria, alert the user
+        alert('Password must be a minimum of 8 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&)');
+        return; // Exit the function
+    }
 
     // Prepare data to send to the server
     const formData = new FormData();
@@ -326,6 +357,7 @@ function updateDetails() {
         alert('An error occurred while updating details. Please try again later.');
     });
 }
+
 
 function submitBooking() {
     alert('Booking submitted!');

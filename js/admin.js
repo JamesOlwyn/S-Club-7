@@ -11,6 +11,137 @@ document.getElementById('Users-btn').addEventListener('click', function() {
     loadUsers();
 });
 
+document.getElementById('details-btn').addEventListener('click', function() {
+    loadDetails(); 
+});
+
+// Load user details from session username to My Details form
+function loadDetails() {
+    // Fetch user details from the server
+    fetch('php/get_user_details.php')
+        .then(response => response.json())
+        .then(data => {
+            // Check if data contains user details
+            if (data && Object.keys(data).length > 0) {
+                // Extract user details from data object
+                const { firstname, lastname, phone, email } = data;
+
+                // Fill the My Details form with user details
+                document.getElementById('content-area').innerHTML = `
+                    <div class="details-box">
+                        <form id="user-details-form">
+                            <div class="form-group">
+                                <label for="firstname">First Name</label>
+                                <input type="text" id="firstname" value="${firstname}">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" id="lastname" value="${lastname}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" id="phone" value="${phone}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="${email}">
+                            </div>
+							<div class="form-group">
+								<label for="password">New Password:</label>
+								<input type="password" id="password" name="password">
+							</div>
+                            <div class="form-actions">
+                                <button type="button" onclick="updateDetails()">Update Details</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            } else {
+                // If no user details found, display an empty form
+                document.getElementById('content-area').innerHTML = `
+                    <!-- Updated "My Details" form -->
+                    <div class="details-box">
+                        <form id="user-details-form">
+                            <div class="form-group">
+                                <label for="firstname">First Name</label>
+                                <input type="text" id="firstname" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" id="lastname" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="text" id="phone" value="">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="">
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" onclick="updateDetails()">Update Details</button>
+                            </div>
+                        </form>
+                    </div>
+                `;
+            }
+			// Remove 'active' class from all tabs
+            const navItems = document.querySelectorAll('.menu li');
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            // Add 'active' class to the selected tab
+            document.getElementById('details-btn').classList.add('active');
+        })
+        .catch(error => {
+            console.error('Error fetching user details:', error);
+        });
+}
+
+// Method to update My Details form
+function updateDetails() {
+    // Get form data
+    const firstName = document.getElementById('firstname').value.trim();
+    const lastName = document.getElementById('lastname').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Password validation regular expression
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    // Validate password against the regular expression
+    if (!passwordPattern.test(password)) {
+        // Password does not meet the criteria, alert the user
+        alert('Password must be a minimum of 8 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&)');
+        return; // Exit the function
+    }
+
+    // Prepare data to send to the server
+    const formData = new FormData();
+    formData.append('firstname', firstName);
+    formData.append('lastname', lastName);
+    formData.append('phone', phone);
+    formData.append('email', email);
+    formData.append('password', password);
+
+    // Send data to the server using fetch
+    fetch('php/update_user_details.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Details updated successfully!');
+        } else {
+            alert('Failed to update details. Please try again later.');
+        }
+    })
+    .catch(error => {
+        console.error('Error updating user details:', error);
+        alert('An error occurred while updating details. Please try again later.');
+    });
+}
 
 // Function to load all bookings for admin
 function loadAllBookings() {
@@ -942,8 +1073,8 @@ document.getElementById('menu-toggle').addEventListener('click', function() {
 
 // Add event listener to window to load bookings and highlight the default tab when the page loads
 window.addEventListener('load', function() {
-    loadAllBookings(); // Load bookings content by default
-    document.getElementById('bookings-btn').classList.add('active'); // Highlight the Bookings tab by adding 'active' class
+    loadDetails(); // Load bookings content by default
+    document.getElementById('details-btn').classList.add('active'); // Highlight the Bookings tab by adding 'active' class
 });
 
 document.addEventListener('DOMContentLoaded', function() {

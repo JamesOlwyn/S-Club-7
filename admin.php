@@ -76,7 +76,8 @@ if(isset($_SESSION['username'])) {
         <div class="account-container">
             <aside class="menu">
                 <ul>
-                    <li id="bookings-btn" class="active">Bookings</li>
+					<li id="details-btn" class="active">My Details</li>
+                    <li id="bookings-btn">Bookings</li>
                     <li id="rasaimenu-btn">Rasai Menu</li>
                     <li id="Users-btn">Users</li>
                 </ul>

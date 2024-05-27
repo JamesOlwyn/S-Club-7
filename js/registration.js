@@ -4,11 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const registrationForm = document.querySelector('form');
 
     // Event listener for form submission
-    registrationForm.addEventListener('submit', function(event) {
+    registrationForm.addEventListener('submit', async function(event) {
         event.preventDefault(); // Prevent default form submission
-
-        // Log the form element to ensure it's correctly selected
-        console.log(registrationForm);
 
         // Retrieve values from input fields
         const username = document.getElementById('username').value.trim();
@@ -18,20 +15,26 @@ document.addEventListener("DOMContentLoaded", function() {
         const phone = document.getElementById('phone').value.trim();
         const email = document.getElementById('email').value.trim();
 
-        // Log the values to ensure they are correctly retrieved
-        console.log(username, password, firstname, lastname, phone, email);
-
         // Password validation regular expression
-        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         // Validate password against the regular expression
         if (!passwordPattern.test(password)) {
             // Password does not meet the criteria, alert the user
-            alert('Password must be 8-12 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&)');
+            alert('Password must be a minimum of 8 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (@$!%*?&)');
             return; // Exit the function
         }
 
-        // Send form data if password is valid
+        // Check if username is available
+        const isUsernameAvailable = await checkUsernameAvailability(username);
+
+        // If username is not available, alert the user and exit the function
+        if (!isUsernameAvailable) {
+            alert('Username is already taken. Please choose another one.');
+            return;
+        }
+
+        // Send form data if username is available
         fetch('php/update_new_customer.php', {
             method: 'POST', // Use POST method for the request
             body: new FormData(registrationForm) // Send form data
@@ -54,4 +57,28 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error('Error:', error);
         });
     });
+
+    // Function to check username availability
+    async function checkUsernameAvailability(username) {
+        try {
+            const response = await fetch('php/check_username.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username })
+            });
+
+            // Check if the response is a JSON object
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            return !data.exists; // Return true if username is available, false if not
+        } catch (error) {
+            console.error('Error checking username availability:', error);
+            return false; // Return false in case of an error
+        }
+    }
 });
