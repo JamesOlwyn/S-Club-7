@@ -6,7 +6,7 @@ $databaseFile = '../db/rasaiCateringDB.db';
 
 // Check if the form data has been submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Assuming you have sanitized the input data to prevent SQL injection
+
     $menuName = $_POST["MenuName"];
     $menuDesc = $_POST["MenuDesc"];
     $menuPrice = $_POST["MenuPrice"];

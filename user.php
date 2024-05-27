@@ -110,7 +110,7 @@ if(isset($_SESSION['username'])) {
                     <ul>
                         <li id="details-btn" class="active">My Details</li>
                         <li id="booking-btn">New Booking</li>
-                        <li id="previous-btn">Previous Bookings</li>
+                        <li id="previous-btn">Bookings</li>
                         <li id="message-btn">Message Rasai</li>
                     </ul>
                 </aside>

@@ -29,7 +29,6 @@ document.getElementById('message-btn').addEventListener('click', function() {
 });
 
 document.getElementById('user-logout-btn').addEventListener('click', function() {
-	console.log("Logout button clicked"); // Add this line
 	highlightTab('user-logout-btn'); // Highlight the Message tab
     logout(); // Call the logout function	
 });

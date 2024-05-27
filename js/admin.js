@@ -219,14 +219,11 @@ function loadAllBookings() {
 				const updateButton = document.createElement('button');
 				updateButton.textContent = 'Update';
 				updateButton.addEventListener('click', function() {
-					console.log('Update button clicked');
 					// Retrieve updated values from input fields
 					const updatedOrderDate = dateInput.value;
 					const updatedOrderAddress = addressInput.value;
 					const updatedAdultGuests = adultGuestsInput.value;
 					const updatedChildGuests = childGuestsInput.value;
-
-					console.log('Updated values:', updatedOrderDate, updatedOrderAddress, updatedAdultGuests, updatedChildGuests);
 
 					// Call function to update booking
 					updateBooking(booking.OrderID, updatedOrderDate, updatedOrderAddress, updatedAdultGuests, updatedChildGuests);
@@ -296,11 +293,11 @@ function submitNewBooking(username, date, address, adultGuests, childGuests) {
         return response.text(); // Get raw response content
     })
     .then(text => {
-        console.log('Response from server:', text); // Log the raw response
         // Check if the response indicates success or failure
         if (text.includes('successfully')) {
             alert('Booking added successfully');
-            // Optionally, you can reload the page or perform any other actions after successful submission
+            // Call loadAllBookings to reload the bookings
+            loadAllBookings();
         } else {
             throw new Error(text); // Throw custom error containing server response
         }
@@ -311,9 +308,6 @@ function submitNewBooking(username, date, address, adultGuests, childGuests) {
         alert('Error: ' + error.message);
     });
 }
-
-
-
 
 
 
@@ -391,12 +385,11 @@ function updateBooking(orderID, orderDate, orderAddress, adultGuests, childGuest
         return response.text(); // Get raw response content
     })
     .then(text => {
-        console.log('Response from server:', text); // Log the raw response
         // Check if the response indicates success or failure
         if (text.includes('successfully')) {
             alert('Booking updated successfully');
-            // Redirect to the admin page after successful update
-            window.location.href = 'admin.php';
+            // Reload bookings after successful update
+            loadAllBookings();
         } else {
             throw new Error('Failed to update booking: ' + text);
         }
@@ -406,6 +399,7 @@ function updateBooking(orderID, orderDate, orderAddress, adultGuests, childGuest
         // Handle error
     });
 }
+
 
 // Function to show the form fields for adding a new booking
 function showAddNewBookingForm() {
@@ -444,16 +438,6 @@ function showAddNewBookingForm() {
     // Submit button
     const submitButton = document.createElement('button');
     submitButton.textContent = 'Submit';
-    submitButton.addEventListener('click', function() {
-        const username = usernameInput.value;
-        const date = dateInput.value;
-        const address = addressInput.value;
-        const adultGuests = adultGuestsInput.value;
-        const childGuests = childGuestsInput.value;
-
-        // Call function to submit new booking
-        submitNewBooking(username, date, address, adultGuests, childGuests);
-    });
     form.appendChild(submitButton);
 
     // Cancel button
@@ -465,16 +449,24 @@ function showAddNewBookingForm() {
     };
     form.appendChild(cancelButton);
 
+    // Attach event listener to handle form submission
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form from submitting and refreshing the page
+
+        const username = usernameInput.value;
+        const date = dateInput.value;
+        const address = addressInput.value;
+        const adultGuests = adultGuestsInput.value;
+        const childGuests = childGuestsInput.value;
+
+        // Call function to submit new booking
+        submitNewBooking(username, date, address, adultGuests, childGuests);
+    });
+
     // Append form to content area
     const contentArea = document.getElementById('content-area');
     contentArea.appendChild(form);
 }
-
-
-
-
-
-
 
 
 
@@ -604,12 +596,13 @@ function loadRasaiMenu() {
 
 // Function to delete menu from the database
 function deleteMenu(menuID) {
+
     fetch('php/delete_menu_option.php', {
         method: 'POST',
-        body: JSON.stringify({ MenuID: menuID }),
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ MenuID: menuID })
     })
     .then(response => {
         if (!response.ok) {
@@ -618,15 +611,21 @@ function deleteMenu(menuID) {
         return response.json(); // Assuming the server responds with a success message
     })
     .then(responseData => {
-        alert('Menu option deleted successfully');
-        // Reload Rasai menu after successful deletion
-        loadRasaiMenu();
+        if (responseData.success) {
+            alert('Menu option deleted successfully');
+            // Reload Rasai menu after successful deletion
+            loadRasaiMenu();
+        } else {
+            alert('Error: ' + responseData.error);
+        }
     })
     .catch(error => {
         console.error('Error deleting menu option:', error);
-        // Handle error
+        alert('An error occurred while deleting the menu option');
     });
 }
+
+
 
 // Function to show the form for adding a new menu option
 function showAddMenuForm() {
@@ -722,7 +721,6 @@ function updateMenu(formData) {
         return response.text(); // Get raw response content
     })
     .then(text => {
-        console.log('Response from server:', text); // Log the raw response
         // Check if the response indicates success or failure
         if (text.includes('successfully')) {
             alert('Menu option updated successfully');
@@ -776,7 +774,6 @@ function populateForm(selectedMenu, form) {
         // Serialize form data
         const formData = new FormData(form);
         // Call function to handle form submission with form data
-        console.log('Form data:', formData);
         updateMenu(formData);
     });
     form.appendChild(submitButton);
@@ -891,7 +888,6 @@ function loadUsers() {
                 const updateButton = document.createElement('button');
                 updateButton.textContent = 'Update';
                 updateButton.addEventListener('click', function() {
-                    console.log('Update button clicked for user:', user);
                     // Call function to update user
                     updateUser(row);
                 });
@@ -903,7 +899,6 @@ function loadUsers() {
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = 'Delete';
                 deleteButton.addEventListener('click', function() {
-                    console.log('Delete button clicked for user:', user);
                     // Call function to delete user
                     deleteUser(user.CustID);
                 });
@@ -1037,7 +1032,6 @@ function createButton(text, clickHandler) {
 
 // Function to submit new user
 function submitNewUser(newUser) {
-    console.log('Submitting new user:', newUser); // Log the new user data
     // Make fetch request to update_user.php
     fetch('../php/update_user.php', {
         method: 'POST',

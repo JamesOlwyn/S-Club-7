@@ -4,49 +4,40 @@ session_start(); // Start the session
 // SQLite database file path
 $databaseFile = '../db/rasaiCateringDB.db';
 
-// Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate and sanitize input data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $fullname = $_POST['fullname'];
-    $lastname = $_POST['lastname'];
-    $phone = $_POST['phone'];
-    $email = $_POST['email'];
+try {
+    // Connect to SQLite database using PDO
+    $db = new PDO('sqlite:' . $databaseFile);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Set error mode to exception
 
-    try {
-        // Connect to SQLite database
-        $conn = new PDO("sqlite:" . $databaseFile);
+    // Get the raw POST data
+    $rawPostData = file_get_contents('php://input');
 
-        // Set error mode to exceptions
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Decode JSON data
+    $postData = json_decode($rawPostData, true);
 
-        // Prepare SQL statement to insert data into Customer table
-        $stmt = $conn->prepare("INSERT INTO Customer (Username, Userpass, FName, LName, Phone, Email) 
-                                VALUES (:username, :password, :fullname, :lastname, :phone, :email)");
+    // Check if MenuID is provided
+    if (isset($postData['MenuID']) && is_numeric($postData['MenuID'])) {
+        $menuID = intval($postData['MenuID']);
 
-        // Bind parameters
-        $stmt->bindParam(':username', $username);
-        $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':fullname', $fullname);
-        $stmt->bindParam(':lastname', $lastname);
-        $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':email', $email);
+        // Prepare and execute DELETE query
+        $query = $db->prepare('DELETE FROM Menu WHERE MenuID = ?');
+        $query->execute([$menuID]);
 
-        // Execute the statement
-        $stmt->execute();
-
-        // Display success message
-        echo "New record created successfully";
-
-        // Close connection
-        $conn = null;
-    } catch(PDOException $e) {
-        // Display error message
-        echo "Error: " . $e->getMessage();
+        // Check if deletion was successful
+        if ($query->rowCount() > 0) {
+            echo json_encode(['success' => true, 'message' => 'Menu option deleted successfully']);
+        } else {
+            echo json_encode(['error' => 'Failed to delete menu option or menu option does not exist']);
+        }
+    } else {
+        // Return error response if MenuID is not provided or is not valid
+        echo json_encode(['error' => 'Invalid or missing MenuID']);
     }
-} else {
-    // If form is not submitted, display error message
-    echo "Error: Form not submitted";
+} catch (PDOException $e) {
+    // Return error response
+    echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+} finally {
+    // Close database connection
+    $db = null;
 }
 ?>

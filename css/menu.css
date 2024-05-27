@@ -118,6 +118,7 @@ body, html {
 .box-container .color-box > .box-content {
     padding-left: 40px;
     margin-left: 100px;
+    margin-right: 100px;
     text-align: left;
 }
 
@@ -127,3 +128,4 @@ body, html {
     margin-left: 0 !important; /* Reset margin-left */
     text-align: right !important; /* Align price to the right */
 }
+
