@@ -883,17 +883,6 @@ function loadUsers() {
                 emailCell.appendChild(emailInput);
                 row.appendChild(emailCell);
 
-                // Actions: Update Button
-                const updateCell = document.createElement('td');
-                const updateButton = document.createElement('button');
-                updateButton.textContent = 'Update';
-                updateButton.addEventListener('click', function() {
-                    // Call function to update user
-                    updateUser(row);
-                });
-                updateCell.appendChild(updateButton);
-                row.appendChild(updateCell);
-
                 // Actions: Delete Button
                 const deleteCell = document.createElement('td');
                 const deleteButton = document.createElement('button');
@@ -942,6 +931,35 @@ function loadUsers() {
     document.getElementById('Users-btn').classList.add('active');
 }
 
+
+// Function to delete a user
+function deleteUser(custID) {
+    // Make fetch request to delete_user.php
+    fetch('../php/delete_customer.php', {
+        method: 'POST',
+        body: JSON.stringify({ CustID: custID }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Check for specific message in the JSON response
+        if (data.message) {
+            // Display success message to the user
+            alert(data.message);
+            // Reload users after successful deletion
+            loadUsers();
+        } else {
+            throw new Error('Unexpected response structure');
+        }
+    })
+    .catch(error => {
+        // Display error message to the user
+        console.error('Error deleting user:', error);
+        alert(`Failed to delete user. Please try again. Error: ${error.message}`);
+    });
+}
 
 
 // Function to show the form fields for adding a new user
@@ -1032,8 +1050,8 @@ function createButton(text, clickHandler) {
 
 // Function to submit new user
 function submitNewUser(newUser) {
-    // Make fetch request to update_user.php
-    fetch('../php/update_user.php', {
+    // Make fetch request to admin_add_new_user.php
+    fetch('../php/admin_add_new_user.php', {
         method: 'POST',
         body: JSON.stringify(newUser),
         headers: {
@@ -1041,23 +1059,42 @@ function submitNewUser(newUser) {
         }
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to update user');
-        }
-        return response.json();
+        // Attempt to parse JSON response
+        return response.json().then(data => ({
+            status: response.status, 
+            data: data
+        }));
     })
-    .then(data => {
-        // Display success message to the user
-        alert('User updated successfully');
-        // Reload users after successful submission
-        loadUsers();
+    .then(res => {
+        const { status, data } = res;
+
+        // Log the status and data for debugging
+        console.log('Status:', status);
+        console.log('Data:', data);
+
+        // Check if the status is OK and handle the response data
+        if (status >= 200 && status < 300) {
+            if (data.message) {
+                // Display success message to the user
+                alert(data.message);
+                // Reload users after successful submission
+                loadUsers();
+            } else {
+                throw new Error('Unexpected response structure');
+            }
+        } else {
+            throw new Error(`Unexpected response status: ${status}`);
+        }
     })
     .catch(error => {
         // Display error message to the user
         console.error('Error updating user:', error);
-        alert('Failed to update user. Please try again.');
+        alert(`Failed to update user. Please try again. Error: ${error.message}`);
     });
 }
+
+
+
 
 // Toggle the hamburger menu
 document.getElementById('menu-toggle').addEventListener('click', function() {
