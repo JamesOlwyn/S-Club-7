@@ -27,7 +27,8 @@ body, html {
 
 /* Centralized header title with increased font size */
 .header-title {
-    font-size: 30px;
+    font-size: 40px;
+    font-family: system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     color: white;
     font-weight: bold;
     position: absolute;
