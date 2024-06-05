@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Login</button>
             </div>
             <div class="register-link">
-                <p>Not a member? <a href="Registration.php">Register here</a></p>
+                <p>Not a member? <a href="registration.php">Register here</a></p>
             </div>
             <div class="social-login">
                 <a href="https://facebook.com" class="fa fa-facebook social-icon"></a>
