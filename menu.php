@@ -64,7 +64,7 @@ session_start();
     </nav>
     <main>
         <div class="centered-image">
-            <img src="Images/MenuImages-removebg-preview.png" alt="Featured Dish" loading="lazy">
+            <img src="images/MenuImages-removebg-preview.png" alt="Featured Dish" loading="lazy">
         </div>
         <div class="box-container" id="menu-items-container"></div>
     </main>

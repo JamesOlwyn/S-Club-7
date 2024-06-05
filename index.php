@@ -83,28 +83,28 @@ session_start();
                 <div class="responsive">
                     <div class="gallery">
                         <a target="_blank" href="Images/Food1.jpg">
-                            <img src="Images/Food1.jpg" alt="Cinque Terre">
+                            <img src="images/Food1.jpg" alt="Cinque Terre">
                         </a>
                     </div>
                 </div>
                 <div class="responsive">
                     <div class="gallery">
                         <a target="_blank" href="Images/Food2.jpg">
-                            <img src="Images/Food2.jpg" alt="Forest">
+                            <img src="images/Food2.jpg" alt="Forest">
                         </a>
                     </div>
                 </div>
                 <div class="responsive">
                     <div class="gallery">
                         <a target="_blank" href="Images/Food3.jpg">
-                            <img src="Images/Food3.jpg" alt="Northern Lights">
+                            <img src="images/Food3.jpg" alt="Northern Lights">
                         </a>
                     </div>
                 </div>
                 <div class="responsive">
                     <div class="gallery">
                         <a target="_blank" href="Images/Food4.jpg">
-                            <img src="Images/Food4.jpg" alt="Mountains">
+                            <img src="images/Food4.jpg" alt="Mountains">
                         </a>
                     </div>
                 </div>

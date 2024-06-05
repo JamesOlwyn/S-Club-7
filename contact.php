@@ -67,7 +67,7 @@ session_start();
 <main>
     <div class="contact-top-section">
         <div class="contact-top-left">
-            <h2 class="contact-top-header">Box 1</h2>
+            <h2 class="contact-top-header">Contact Us</h2>
             <div class="contact-top-text">
                 <p>At Rasai, we are dedicated to providing exceptional catering services tailored to your specific needs. Whether you're planning a corporate event, a private celebration, or any special occasion, our team is committed to ensuring your event is a resounding success with delicious and elegantly presented cuisine.</p>
 
